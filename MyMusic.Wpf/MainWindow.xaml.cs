@@ -19,6 +19,7 @@ namespace MyMusic.Wpf
             var model = new Mp3View();
             model.Files = _ingester.GetFiles();
             DataContext = model;
+            dgFiles.ItemsSource = ((Mp3View)DataContext).Files;
         }
     }
 }

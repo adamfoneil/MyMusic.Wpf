@@ -22,20 +22,23 @@ namespace MyMusic.Wpf.Services
             return files.Select(fileName =>
             {
                 using (var mp3 = new Mp3(fileName, Mp3Permissions.Read))
-                {
-                    var tag = mp3.GetTag(Id3TagFamily.Version2X);
-                    var result = new Mp3File()
-                    {
-                        Path = fileName,
-                        Artist = tag.Artists,
-                        Album = tag.Album,
-                        Title = tag.Title
-                    };
+                {                    
+                    var path = fileName.Substring(RootPath.Length);
+                    if (path.StartsWith("\\")) path = path.Substring(1);
+                    var result = new Mp3File() { Path = path };
 
-                    if (tag.Track.IsAssigned)
+                    var tag = mp3.GetTag(Id3TagFamily.Version2X);
+                    if (tag != null)
                     {
-                        result.TrackNumber = tag.Track.Value;
-                        result.TrackCount = tag.Track.TrackCount;
+                        result.Artist = tag.Artists;
+                        result.Album = tag.Album;
+                        result.Title = tag.Title;
+
+                        if (tag.Track.IsAssigned)
+                        {
+                            result.TrackNumber = tag.Track.Value;
+                            result.TrackCount = tag.Track.TrackCount;
+                        }
                     }
 
                     return result;

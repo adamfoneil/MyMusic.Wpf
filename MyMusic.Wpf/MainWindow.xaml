@@ -9,6 +9,11 @@
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     
     <Grid>
-
+        <DataGrid AutoGenerateColumns="False" Name="dgFiles">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
