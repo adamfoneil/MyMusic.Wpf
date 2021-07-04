@@ -1,23 +1,27 @@
 ﻿using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MyMusic.Wpf
 {
     public partial class MainWindow : Window
     {
-        private readonly MetadataCache _ingester;
+        private readonly MetadataCache _cache;
 
-        public MainWindow(MetadataCache ingester)
+        public MainWindow(MetadataCache cache)
         {
-            _ingester = ingester;
+            _cache = cache;
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public MetadataCache Cache => _cache;
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var model = new Mp3View();
-            //model.Files = _ingester.GetFiles();
+            model.Files = await _cache.GetMp3FilesAsync();
+            model.LoadTime = _cache.ScanTime;
             DataContext = model;
             dgFiles.ItemsSource = ((Mp3View)DataContext).Files;
         }

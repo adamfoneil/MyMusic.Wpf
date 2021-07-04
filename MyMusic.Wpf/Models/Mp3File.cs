@@ -1,4 +1,7 @@
-﻿namespace MyMusic.Wpf.Models
+﻿using MyMusic.Wpf.Static;
+using System.IO;
+
+namespace MyMusic.Wpf.Models
 {
     public class Mp3File
     {
@@ -8,5 +11,17 @@
         public string Title { get; set; }
         public int? TrackNumber { get; set; }
         public int? TrackCount { get; set; }
+
+        public string DisplayTitle =>
+            !string.IsNullOrEmpty(Title) ? Title :
+            Path.GetFileName(Filename);
+
+        public string DisplayArtist =>
+            !string.IsNullOrEmpty(Artist) ? Artist :
+            PathUtil.Folder(Filename, 2);
+
+        public string DisplayAlbum =>
+            !string.IsNullOrEmpty(Album) ? Album :
+            PathUtil.Folder(Filename, 1);
     }
 }
