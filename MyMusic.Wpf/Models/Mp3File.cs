@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace MyMusic.Wpf.Models
+﻿namespace MyMusic.Wpf.Models
 {
     public class Mp3File
     {
-        public string Path { get; set; }
+        public string Filename { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }
         public string Title { get; set; }

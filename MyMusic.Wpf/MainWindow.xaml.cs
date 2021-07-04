@@ -6,9 +6,9 @@ namespace MyMusic.Wpf
 {
     public partial class MainWindow : Window
     {
-        private readonly Mp3Ingester _ingester;
+        private readonly MetadataCache _ingester;
 
-        public MainWindow(Mp3Ingester ingester)
+        public MainWindow(MetadataCache ingester)
         {
             _ingester = ingester;
             InitializeComponent();
@@ -17,7 +17,7 @@ namespace MyMusic.Wpf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var model = new Mp3View();
-            model.Files = _ingester.GetFiles();
+            //model.Files = _ingester.GetFiles();
             DataContext = model;
             dgFiles.ItemsSource = ((Mp3View)DataContext).Files;
         }

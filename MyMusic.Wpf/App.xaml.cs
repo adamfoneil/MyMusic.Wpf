@@ -19,8 +19,8 @@ namespace MyMusic.Wpf
         }
 
         private void ConfigureServices(ServiceCollection services)
-        {            
-            services.AddSingleton(new Mp3Ingester(@"C:\Users\adamo\OneDrive\Music"));
+        {
+            services.AddSingleton(new MetadataCache(@"C:\Users\adamo\OneDrive\Music"));
             services.AddSingleton<MainWindow>();
         }
 

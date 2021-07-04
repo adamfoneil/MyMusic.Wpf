@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMusic.Wpf", "MyMusic.Wpf\MyMusic.Wpf.csproj", "{00B76003-883B-45B7-86DD-2A87B7CFE923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyMusic.Wpf", "MyMusic.Wpf\MyMusic.Wpf.csproj", "{00B76003-883B-45B7-86DD-2A87B7CFE923}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{4F2B30A7-C67C-434B-95A4-6FB1056938B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{00B76003-883B-45B7-86DD-2A87B7CFE923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00B76003-883B-45B7-86DD-2A87B7CFE923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00B76003-883B-45B7-86DD-2A87B7CFE923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F2B30A7-C67C-434B-95A4-6FB1056938B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F2B30A7-C67C-434B-95A4-6FB1056938B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F2B30A7-C67C-434B-95A4-6FB1056938B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F2B30A7-C67C-434B-95A4-6FB1056938B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
