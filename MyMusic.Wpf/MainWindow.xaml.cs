@@ -29,7 +29,7 @@ namespace MyMusic.Wpf
         {
             var grid = sender as DataGrid;
             var mp3file = grid.CurrentItem as Mp3File;
-            player.Mp3File = mp3file;
+            player.PlayNow(mp3file);
         }
 
         private async void btnRebuild_Click(object sender, RoutedEventArgs e)
