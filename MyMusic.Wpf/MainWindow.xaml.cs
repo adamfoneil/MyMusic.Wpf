@@ -24,7 +24,7 @@ namespace MyMusic.Wpf
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var model = new Mp3View();
-            model.Files = await _cache.GetMp3FilesAsync();
+            model.AllFiles = await _cache.GetMp3FilesAsync();
             model.LoadTime = _cache.ScanTime;
             DataContext = model;            
         }
@@ -40,7 +40,7 @@ namespace MyMusic.Wpf
         private async void btnRebuild_Click(object sender, RoutedEventArgs e)
         {
             var model = this.DataContext as Mp3View;
-            model.Files = await _cache.GetMp3FilesAsync(rebuild: true);
+            model.AllFiles = await _cache.GetMp3FilesAsync(rebuild: true);
             model.LoadTime = _cache.ScanTime;
         }
     }

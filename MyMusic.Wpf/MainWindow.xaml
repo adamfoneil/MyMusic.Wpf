@@ -15,33 +15,48 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ToolBar Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <Button Click="btnRebuild_Click" Name="btnRebuild">Rebuild</Button>
-            </StackPanel>
-        </ToolBar>
-        
-        <DataGrid AutoGenerateColumns="False" Name="dgFiles" Grid.Row="1" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Files}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Artist" Binding="{Binding DisplayArtist}" Width="*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Album" Binding="{Binding DisplayAlbum}" Width="*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Track" Binding="{Binding TrackNumber}" Width="40" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding DisplayTitle}" Width="*" IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Now Playing">
+
+            </TabItem>
+
+            <TabItem Header="All Files">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <ToolBar Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="btnRebuild_Click" Name="btnRebuild">Rebuild</Button>
+                        </StackPanel>
+                    </ToolBar>
+
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding AllFiles}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Artist" Binding="{Binding DisplayArtist}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Album" Binding="{Binding DisplayAlbum}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Track" Binding="{Binding TrackNumber}" Width="40" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Title" Binding="{Binding DisplayTitle}" Width="*" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
         <StatusBar Grid.Row="2">
             <StackPanel Orientation="Horizontal">
                 <StatusBarItem>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Files.Count, Mode=OneWay, StringFormat=n0}"/>
+                        <TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
                         <TextBlock Margin="3,0,0,0">files</TextBlock>
                     </StackPanel>
                 </StatusBarItem>
                 <StatusBarItem>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>loaded in</TextBlock>
-                        <TextBlock Margin="3,0,0,0" Text="{Binding LoadTime}"/>
+                        <TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
                     </StackPanel>
                 </StatusBarItem>
             </StackPanel>
