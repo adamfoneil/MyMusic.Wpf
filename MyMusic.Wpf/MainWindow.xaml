@@ -10,11 +10,18 @@
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button Click="btnRebuild_Click" Name="btnRebuild">Rebuild</Button>
+            </StackPanel>
+        </ToolBar>
         
-        <DataGrid AutoGenerateColumns="False" Name="dgFiles" Grid.Row="0">
+        <DataGrid AutoGenerateColumns="False" Name="dgFiles" Grid.Row="1" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Files}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Artist" Binding="{Binding DisplayArtist}" Width="*" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Album" Binding="{Binding DisplayAlbum}" Width="*" IsReadOnly="True"/>
@@ -23,7 +30,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StatusBar Grid.Row="1">
+        <StatusBar Grid.Row="2">
             <StackPanel Orientation="Horizontal">
                 <StatusBarItem>
                     <StackPanel Orientation="Horizontal">

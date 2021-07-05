@@ -5,6 +5,7 @@ namespace MyMusic.Wpf.Models
 {
     public class Mp3File
     {
+        public string FullPath { get; set; }
         public string Filename { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }

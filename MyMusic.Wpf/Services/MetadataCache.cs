@@ -23,7 +23,7 @@ namespace MyMusic.Wpf.Services
         public string RootPath { get; }
         public TimeSpan ScanTime { get; private set; }
 
-        public async Task<IEnumerable<Mp3File>> GetMp3FilesAsync()
+        public async Task<IEnumerable<Mp3File>> GetMp3FilesAsync(bool rebuild = false)
         {
             List<Mp3File> results = new List<Mp3File>();
 
@@ -35,9 +35,10 @@ namespace MyMusic.Wpf.Services
                 {
                     if (files.Any())
                     {
+                        if (rebuild) File.Delete(Path.Combine(path, _folderCache));
                         var fileInfos = files.Select(fileName => new FileInfo(fileName));
-                        var cachedData = GetCachedMetadata(path, fileInfos);
-                        results.AddRange(cachedData);
+                        var data = GetCachedMetadata(path, fileInfos);
+                        results.AddRange(data);
                     }
                 });
             });
@@ -90,7 +91,7 @@ namespace MyMusic.Wpf.Services
             {
                 using (var mp3 = new Mp3(fi.FullName, Mp3Permissions.Read))
                 {
-                    var result = new Mp3File() { Filename = fi.Name };
+                    var result = new Mp3File() { Filename = fi.Name, FullPath = fi.FullName };
 
                     var tag = mp3.GetTag(Id3TagFamily.Version2X);
                     if (tag != null)
