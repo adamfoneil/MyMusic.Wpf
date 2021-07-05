@@ -9,13 +9,11 @@ namespace MyMusic.Wpf
 {
     public partial class MainWindow : Window
     {
-        private readonly MetadataCache _cache;
-        private readonly MediaPlayer _player;
+        private readonly MetadataCache _cache;        
 
         public MainWindow(MetadataCache cache)
         {
-            _cache = cache;
-            _player = new MediaPlayer();
+            _cache = cache;            
             InitializeComponent();
         }
 
@@ -33,8 +31,7 @@ namespace MyMusic.Wpf
         {
             var grid = sender as DataGrid;
             var mp3file = grid.CurrentItem as Mp3File;
-            _player.Open(new Uri($"file://{mp3file.FullPath}"));
-            _player.Play();
+            player.Mp3File = mp3file;            
         }
 
         private async void btnRebuild_Click(object sender, RoutedEventArgs e)

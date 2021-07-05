@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyMusic.Wpf"
         xmlns:models="clr-namespace:MyMusic.Wpf.Models"
+        xmlns:controls="clr-namespace:MyMusic.Wpf.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     
@@ -17,7 +18,7 @@
 
         <TabControl Grid.Row="1">
             <TabItem Header="Now Playing">
-
+                <controls:Player x:Name="player"/>
             </TabItem>
 
             <TabItem Header="All Files">
