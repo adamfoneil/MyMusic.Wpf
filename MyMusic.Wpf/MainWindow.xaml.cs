@@ -1,19 +1,17 @@
 ﻿using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace MyMusic.Wpf
 {
     public partial class MainWindow : Window
     {
-        private readonly MetadataCache _cache;        
+        private readonly MetadataCache _cache;
 
         public MainWindow(MetadataCache cache)
         {
-            _cache = cache;            
+            _cache = cache;
             InitializeComponent();
         }
 
@@ -24,14 +22,14 @@ namespace MyMusic.Wpf
             var model = new Mp3View();
             model.AllFiles = await _cache.GetMp3FilesAsync();
             model.LoadTime = _cache.ScanTime;
-            DataContext = model;            
+            DataContext = model;
         }
 
         private void dgFiles_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var grid = sender as DataGrid;
             var mp3file = grid.CurrentItem as Mp3File;
-            player.Mp3File = mp3file;            
+            player.Mp3File = mp3file;
         }
 
         private async void btnRebuild_Click(object sender, RoutedEventArgs e)

@@ -22,15 +22,15 @@ namespace MyMusic.Wpf.Controls
         }
 
         private Mp3File _file;
-       
+
         public Mp3File Mp3File
         {
             get => _file;
             set
             {
                 if (value != _file)
-                {                    
-                    _player.Open(new Uri($"file://{value.FullPath}"));                    
+                {
+                    _player.Open(new Uri($"file://{value.FullPath}"));
                     _file = value;
                     DataContext = _file;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Mp3File)));

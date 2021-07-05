@@ -13,7 +13,7 @@ namespace MyMusic.Wpf.Services
 {
     public class MetadataCache
     {
-        private const string _folderCache = "meta.json";        
+        private const string _folderCache = "meta.json";
 
         public MetadataCache(string rootPath)
         {
