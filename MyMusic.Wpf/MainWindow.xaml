@@ -17,11 +17,11 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="1">
-            <TabItem Header="Now Playing">
-                <controls:Player x:Name="player"/>
-            </TabItem>
+			<TabItem Header="Now Playing">
+				<controls:Player x:Name="player"/>
+			</TabItem>
 
-            <TabItem Header="All Files">
+			<TabItem Header="All Files">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -33,15 +33,8 @@
                             <Button Click="btnRebuild_Click" Name="btnRebuild">Rebuild</Button>
                         </StackPanel>
                     </ToolBar>
-
-                    <DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding AllFiles}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Artist" Binding="{Binding DisplayArtist}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Album" Binding="{Binding DisplayAlbum}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Track" Binding="{Binding TrackNumber}" Width="40" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Title" Binding="{Binding DisplayTitle}" Width="*" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+					<controls:Playlist x:Name="dgFiles" Grid.Row="1" Mp3FileSelected="dgFiles_Mp3FileSelected" Mp3Files="{Binding AllFiles}"/>
+				
                 </Grid>
             </TabItem>
         </TabControl>
