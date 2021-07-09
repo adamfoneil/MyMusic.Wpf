@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:MyMusic.Wpf.Controls" d:DataContext="{d:DesignInstance Type=local:Playlist}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="LayoutRoot">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
+	</UserControl.Resources>
+	<Grid x:Name="LayoutRoot">
 		<DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" SelectedItem="{Binding CurrentTrack}" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Mp3Files}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Artist" Binding="{Binding DisplayArtist}" Width="*" IsReadOnly="True"/>
@@ -14,6 +17,12 @@
 				<DataGridTextColumn Header="Track" Binding="{Binding TrackNumber}" Width="40" IsReadOnly="True"/>
 				<DataGridTextColumn Header="Title" Binding="{Binding DisplayTitle}" Width="*" IsReadOnly="True"/>
 			</DataGrid.Columns>
+			<DataGrid.ContextMenu>
+				<ContextMenu Visibility="{Binding EnableContextMenu, Converter={StaticResource ResourceKey=boolToVisConverter}}">
+					<MenuItem Header="Play Next" x:Name="playNextMenuItem"  Command="{Binding PlayNextCommand}" CommandParameter="{Binding CurrentTrack}"/>
+					<MenuItem Header="Play At End"  x:Name="playAtEndMenuItem" Command="{Binding PlayAtEndCommand}" CommandParameter="{Binding CurrentTrack}"/>
+				</ContextMenu>
+			</DataGrid.ContextMenu>
 		</DataGrid>
 	</Grid>
 </UserControl>

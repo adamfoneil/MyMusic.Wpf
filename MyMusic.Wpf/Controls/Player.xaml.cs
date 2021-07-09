@@ -66,9 +66,15 @@ namespace MyMusic.Wpf.Controls
             }
         }
 
-        public void PlayNext(Mp3File file) => _playlist.Insert(1, file);
+        public void PlayNext(Mp3File file)
+        {
+            _playlist.Insert(_playlist.Count > 0 ? 1 : 0, file);
+        }
 
-        public void PlayAtEnd(Mp3File file) => _playlist.Add(file);
+        public void PlayAtEnd(Mp3File file)
+        {
+            _playlist.Add(file);
+        }
 
         private Mp3File _file;
 

@@ -1,7 +1,9 @@
 ﻿using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
+using Prism.Commands;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MyMusic.Wpf
 {
@@ -12,17 +14,21 @@ namespace MyMusic.Wpf
         public MainWindow(MetadataCache cache)
         {
             _cache = cache;
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         public MetadataCache Cache => _cache;
+
+       
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var model = new Mp3View();
             model.AllFiles = await _cache.GetMp3FilesAsync();
             model.LoadTime = _cache.ScanTime;
-            DataContext = model;
+            model.PlayNextCommand = new DelegateCommand<Mp3File>(file => player.PlayNext(file));
+            model.PlayAtEndCommand = new DelegateCommand<Mp3File>(file => player.PlayAtEnd(file));
+            this.DataContext = model;
         }
 
         private async void btnRebuild_Click(object sender, RoutedEventArgs e)

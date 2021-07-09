@@ -7,53 +7,57 @@
         xmlns:models="clr-namespace:MyMusic.Wpf.Models"
         xmlns:controls="clr-namespace:MyMusic.Wpf.Controls"
         mc:Ignorable="d"
+				x:Name="mainWindow"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1">
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TabControl Grid.Row="1">
 			<TabItem Header="Now Playing">
 				<controls:Player x:Name="player"/>
 			</TabItem>
 
 			<TabItem Header="All Files">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
 
-                    <ToolBar Grid.Row="0">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Click="btnRebuild_Click" Name="btnRebuild">Rebuild</Button>
-                        </StackPanel>
-                    </ToolBar>
-					<controls:Playlist x:Name="dgFiles" Grid.Row="1" Mp3FileSelected="dgFiles_Mp3FileSelected" Mp3Files="{Binding AllFiles}"/>
-				
-                </Grid>
-            </TabItem>
-        </TabControl>
+					<ToolBar Grid.Row="0">
+						<StackPanel Orientation="Horizontal">
+							<Button Click="btnRebuild_Click" Name="btnRebuild">Rebuild</Button>
+						</StackPanel>
+					</ToolBar>
+					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
+														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
+														 PlayNextCommand="{Binding PlayNextCommand}"
+														 Mp3Files="{Binding AllFiles}"/>
 
-        <StatusBar Grid.Row="2">
-            <StackPanel Orientation="Horizontal">
-                <StatusBarItem>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
-                        <TextBlock Margin="3,0,0,0">files</TextBlock>
-                    </StackPanel>
-                </StatusBarItem>
-                <StatusBarItem>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>loaded in</TextBlock>
-                        <TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
-                    </StackPanel>
-                </StatusBarItem>
-            </StackPanel>
-        </StatusBar>
-    </Grid>
+				</Grid>
+			</TabItem>
+		</TabControl>
+
+		<StatusBar Grid.Row="2">
+			<StackPanel Orientation="Horizontal">
+				<StatusBarItem>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
+						<TextBlock Margin="3,0,0,0">files</TextBlock>
+					</StackPanel>
+				</StatusBarItem>
+				<StatusBarItem>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock>loaded in</TextBlock>
+						<TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
+					</StackPanel>
+				</StatusBarItem>
+			</StackPanel>
+		</StatusBar>
+	</Grid>
 </Window>
