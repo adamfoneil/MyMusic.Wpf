@@ -23,7 +23,7 @@ namespace MyMusic.Wpf.Controls
         public Player()
         {
             InitializeComponent();
-            DataContext = this;
+            DataContext = this;            
 
             _player = new MediaPlayer();
             _player.MediaEnded += player_MediaEnded;
@@ -58,7 +58,12 @@ namespace MyMusic.Wpf.Controls
         public void PlayNow(Mp3File file)
         {
             _track = 0;
-            _playlist.Insert(0, file);
+            if (!_playlist.Contains(file))
+                _playlist.Insert(0, file);
+            else
+            {
+                CurrentTrack = file;
+            }
         }
 
         public void PlayNext(Mp3File file) => _playlist.Insert(1, file);
@@ -81,6 +86,11 @@ namespace MyMusic.Wpf.Controls
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTrack)));
                 }
             }
+        }
+
+        private void playlistControl_Mp3FileSelected(Mp3File mp3file)
+        {
+            PlayNow(mp3file);
         }
     }
 }

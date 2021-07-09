@@ -25,18 +25,16 @@ namespace MyMusic.Wpf
             DataContext = model;
         }
 
-        private void dgFiles_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var grid = sender as DataGrid;
-            var mp3file = grid.CurrentItem as Mp3File;
-            player.PlayNow(mp3file);
-        }
-
         private async void btnRebuild_Click(object sender, RoutedEventArgs e)
         {
             var model = this.DataContext as Mp3View;
             model.AllFiles = await _cache.GetMp3FilesAsync(rebuild: true);
             model.LoadTime = _cache.ScanTime;
+        }
+
+        private void dgFiles_Mp3FileSelected(Mp3File mp3file)
+        {
+            player.PlayNow(mp3file);
         }
     }
 }

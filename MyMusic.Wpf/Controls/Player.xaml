@@ -20,5 +20,6 @@
                 <TextBlock Text="{Binding CurrentTrack.Album}" FontSize="16pt"/>
             </StackPanel>
         </StackPanel>
-    </Grid>
+		<local:Playlist x:Name="playlistControl" Mp3FileSelected="playlistControl_Mp3FileSelected" Grid.Row="1" CurrentTrack="{Binding CurrentTrack}" Mp3Files="{Binding Playlist}"/>
+	</Grid>
 </UserControl>
