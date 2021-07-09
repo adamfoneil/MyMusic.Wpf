@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace MyMusic.Wpf.Models
 {
@@ -19,6 +20,10 @@ namespace MyMusic.Wpf.Models
         }
 
         public TimeSpan LoadTime { get; set; }
+
+        public ICommand PlayNextCommand { get; set; }
+
+        public ICommand PlayAtEndCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

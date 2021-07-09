@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="ID3" Version="0.6.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>
 
 </Project>
