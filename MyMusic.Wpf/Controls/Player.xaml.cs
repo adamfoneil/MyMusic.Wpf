@@ -60,13 +60,16 @@ namespace MyMusic.Wpf.Controls
         public ObservableCollection<Mp3File> Playlist => _playlist;
 
         public void PlayNow(Mp3File file)
-        {
-            _track = 0;
+        {            
             if (!_playlist.Contains(file))
-                _playlist.Insert(0, file);
+            {
+                _playlist.Add(file);
+                _track = _playlist.Count;
+            }                
             else
             {
                 CurrentTrack = file;
+                _track = _playlist.IndexOf(file);
             }
         }
 
