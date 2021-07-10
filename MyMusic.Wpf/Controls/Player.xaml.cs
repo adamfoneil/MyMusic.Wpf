@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -17,13 +18,16 @@ namespace MyMusic.Wpf.Controls
 
         private readonly MediaPlayer _player;
         private readonly ObservableCollection<Mp3File> _playlist;
+        private readonly PlayHistory _history;
 
         private int _track;
 
         public Player()
         {
+            //_history = history; how can this be set with dependency injection? or is this not the right way?
+
             InitializeComponent();
-            DataContext = this;            
+            DataContext = this;
 
             _player = new MediaPlayer();
             _player.MediaEnded += player_MediaEnded;
@@ -49,7 +53,7 @@ namespace MyMusic.Wpf.Controls
                 _player.Stop();
                 return;
             }
-                
+
             CurrentTrack = _playlist[_track];
         }
 
@@ -85,8 +89,15 @@ namespace MyMusic.Wpf.Controls
             {
                 if (value != _file)
                 {
-                    _player.Open(new Uri($"file://{value.FullPath}"));
-                    _player.Play();
+                    if (File.Exists(value?.FullPath))
+                    {
+                        _player.Open(new Uri($"file://{value.FullPath}"));
+                        _player.Play();
+                    }
+                    else
+                    {
+                        _player.Stop();
+                    }
 
                     _file = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentTrack)));
