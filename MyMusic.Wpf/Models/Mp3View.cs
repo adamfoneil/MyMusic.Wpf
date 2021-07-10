@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf.Models
@@ -18,6 +19,11 @@ namespace MyMusic.Wpf.Models
                 NotifyOnProperyChanged();
             }
         }
+
+        /// <summary>
+        /// I thought DataGrid would bind to this to provide searchable list
+        /// </summary>
+        public CollectionView FilesCollection => new CollectionView(AllFiles);
 
         public TimeSpan LoadTime { get; set; }
 

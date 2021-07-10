@@ -3,7 +3,6 @@ using MyMusic.Wpf.Services;
 using Prism.Commands;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace MyMusic.Wpf
 {
@@ -18,8 +17,6 @@ namespace MyMusic.Wpf
         }
 
         public MetadataCache Cache => _cache;
-
-       
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -38,9 +35,17 @@ namespace MyMusic.Wpf
             model.LoadTime = _cache.ScanTime;
         }
 
+        /// <summary>
+        /// how to get rid of this?
+        /// </summary>        
         private void dgFiles_Mp3FileSelected(Mp3File mp3file)
         {
             player.PlayNow(mp3file);
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // search behavior would be here
         }
     }
 }
