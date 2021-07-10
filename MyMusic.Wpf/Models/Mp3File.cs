@@ -28,7 +28,7 @@ namespace MyMusic.Wpf.Models
             FileUtil.FolderName(Filename, 1);
 
         public bool IsSearchHit(string query) => SearchValues.ContainsAny(query);
-        
+
         private IEnumerable<string> SearchValues => new[]
         {
             Filename,

@@ -2,7 +2,6 @@
 using MyMusic.Wpf.Services;
 using Prism.Commands;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace MyMusic.Wpf
 {
@@ -22,7 +21,7 @@ namespace MyMusic.Wpf
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Title = "My Music - " +_settings.RootPath;
+            Title = "My Music - " + _settings.RootPath;
 
             var model = new Mp3View();
             model.AllFiles = await _cache.GetMp3FilesAsync();

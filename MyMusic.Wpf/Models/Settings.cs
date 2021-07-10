@@ -25,8 +25,8 @@ namespace MyMusic.Wpf.Models
 
         public static string Filename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyMusic.Wpf", "settings.json");
 
-        public static Settings Load() => File.Exists(Filename) ? 
-            FileUtil.LoadJson<Settings>(Filename) : 
+        public static Settings Load() => File.Exists(Filename) ?
+            FileUtil.LoadJson<Settings>(Filename) :
             new Settings() { RootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), View = AllFilesView.Flat };
 
     }

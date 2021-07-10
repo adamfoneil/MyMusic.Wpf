@@ -58,7 +58,7 @@ namespace MyMusic.Wpf.Models
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     FilesCollection.Filter = (item) =>
-                    {                        
+                    {
                         if (item is Mp3File mp3File)
                         {
                             return mp3File.IsSearchHit(text);
