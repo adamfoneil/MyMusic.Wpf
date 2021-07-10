@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Text.Json;
 
 namespace MyMusic.Wpf.Static
@@ -15,6 +16,13 @@ namespace MyMusic.Wpf.Static
         {
             var json = File.ReadAllText(fileName);
             return JsonSerializer.Deserialize<T>(json);
+        }
+
+        public static void RevealInExplorer(string fileName)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo("explorer.exe");
+            psi.Arguments = $"/select,\"{fileName}\"";
+            Process.Start(psi);
         }
     }
 }
