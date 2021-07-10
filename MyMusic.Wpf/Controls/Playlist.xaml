@@ -21,7 +21,9 @@
 				<ContextMenu Visibility="{Binding EnableContextMenu, Converter={StaticResource ResourceKey=boolToVisConverter}}">
 					<MenuItem Header="Play Next" x:Name="playNextMenuItem"  Command="{Binding PlayNextCommand}" CommandParameter="{Binding CurrentTrack}"/>
 					<MenuItem Header="Play At End"  x:Name="playAtEndMenuItem" Command="{Binding PlayAtEndCommand}" CommandParameter="{Binding CurrentTrack}"/>
-				</ContextMenu>
+                    <Separator/>
+                    <MenuItem Header="View File Location" x:Name="viewFileLocation" Click="viewFileLocation_Click"/>
+                </ContextMenu>
 			</DataGrid.ContextMenu>
 		</DataGrid>
 	</Grid>

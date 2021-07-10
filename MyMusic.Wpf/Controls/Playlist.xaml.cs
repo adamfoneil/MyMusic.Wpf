@@ -1,4 +1,5 @@
 ﻿using MyMusic.Wpf.Models;
+using MyMusic.Wpf.Static;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -113,7 +114,6 @@ namespace MyMusic.Wpf.Controls
             DependencyProperty.Register("PlayAtEndCommand", typeof(ICommand), typeof(Playlist));
 
 
-
         // When the user double clicks on the data grid, this will further triggers the Mp3FileSelected event to notify its subscriber.
         private void dgFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -121,5 +121,7 @@ namespace MyMusic.Wpf.Controls
             var mp3file = grid.CurrentItem as Mp3File;
             Mp3FileSelected?.Invoke(mp3file);
         }
+
+        private void viewFileLocation_Click(object sender, RoutedEventArgs e) => FileUtil.RevealInExplorer(((sender as DataGrid).CurrentItem as Mp3File).FullPath);        
     }
 }
