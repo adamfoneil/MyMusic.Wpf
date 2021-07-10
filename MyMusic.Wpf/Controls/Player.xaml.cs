@@ -38,7 +38,7 @@ namespace MyMusic.Wpf.Controls
 
         private void PlaylistChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_playlist.Count > 0)
+            if (_playlist.Count == 1)
             {
                 CurrentTrack = _playlist[0];
             }
