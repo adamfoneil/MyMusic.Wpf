@@ -42,6 +42,10 @@
 
 				</Grid>
 			</TabItem>
+
+            <TabItem Header="Showcase">
+                
+            </TabItem>
 		</TabControl>
 
         <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
