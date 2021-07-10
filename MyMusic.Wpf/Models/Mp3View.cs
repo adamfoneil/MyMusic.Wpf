@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf.Models
@@ -19,13 +20,58 @@ namespace MyMusic.Wpf.Models
             }
         }
 
+        /// <summary>
+        /// I thought DataGrid would bind to this to provide searchable list.
+        /// </summary>
+        public ICollectionView FilesCollection => CollectionViewSource.GetDefaultView(AllFiles);
+
         public TimeSpan LoadTime { get; set; }
+
+        private string _searchText;
+
+        /// <summary>
+        /// Gets or sets the search text.
+        /// </summary>
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                SearchFiles(_searchText);
+                NotifyOnProperyChanged();
+            }
+        }
+
 
         public ICommand PlayNextCommand { get; set; }
 
         public ICommand PlayAtEndCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void SearchFiles(string text)
+        {
+            // Applyting filter based on search text.
+            if (FilesCollection != null)
+            {
+                if (!string.IsNullOrWhiteSpace(text))
+                {
+                    FilesCollection.Filter = (item) =>
+                    {                        
+                        if (item is Mp3File mp3File)
+                        {
+                            return mp3File.IsSearchHit(text);
+                        }
+                        return false;
+                    };
+                }
+                else // Resetting the filter.
+                {
+                    FilesCollection.Filter = null;
+                }
+            }
+        }
 
         public void NotifyOnProperyChanged([CallerMemberName] string propName = null)
         {
