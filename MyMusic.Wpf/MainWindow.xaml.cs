@@ -46,10 +46,5 @@ namespace MyMusic.Wpf
         {
             player.PlayNow(mp3file);
         }
-
-        private void Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // search behavior would be here
-        }
     }
 }

@@ -31,14 +31,14 @@
 					
 					<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="4">
                         <Button Click="btnRebuild_Click" Name="btnRebuild" DockPanel.Dock="Left">Rebuild</Button>
-                        <TextBox DockPanel.Dock="Right" Width="150" TextChanged="Search_TextChanged"/>
-                        <TextBlock Text=""/>
+						<controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<TextBlock Text=""/>
                     </DockPanel>
 					
 					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
-														 Mp3Files="{Binding AllFiles}"/>
+														 Mp3Files="{Binding FilesCollection}"/>
 
 				</Grid>
 			</TabItem>
