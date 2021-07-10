@@ -44,21 +44,20 @@
 			</TabItem>
 		</TabControl>
 
-		<StatusBar Grid.Row="2">
-			<StackPanel Orientation="Horizontal">
-				<StatusBarItem>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
-						<TextBlock Margin="3,0,0,0">files</TextBlock>
-					</StackPanel>
-				</StatusBarItem>
-				<StatusBarItem>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>loaded in</TextBlock>
-						<TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
-					</StackPanel>
-				</StatusBarItem>
-			</StackPanel>
-		</StatusBar>
-	</Grid>
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
+                    <TextBlock Margin="3,0,0,0">files</TextBlock>
+                    <TextBlock Text="|" Margin="4,0,4,0"/>
+                    <TextBlock>loaded in</TextBlock>
+                    <TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem DockPanel.Dock="Right">
+                <Hyperlink>Settings...</Hyperlink>
+            </StatusBarItem>
+            <TextBlock Text=""/>
+        </DockPanel>
+    </Grid>
 </Window>
