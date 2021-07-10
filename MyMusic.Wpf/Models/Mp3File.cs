@@ -1,5 +1,7 @@
 ﻿using MyMusic.Wpf.Static;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MyMusic.Wpf.Models
 {
@@ -24,5 +26,15 @@ namespace MyMusic.Wpf.Models
         public string DisplayAlbum =>
             !string.IsNullOrEmpty(Album) ? Album :
             FileUtil.FolderName(Filename, 1);
+
+        public bool IsSearchHit(string query) => SearchValues.ContainsAny(query);
+        
+        private IEnumerable<string> SearchValues => new[]
+        {
+            Filename,
+            Artist,
+            Album,
+            Title
+        }.Where(val => !string.IsNullOrWhiteSpace(val)).Select(val => val.ToLower());
     }
 }

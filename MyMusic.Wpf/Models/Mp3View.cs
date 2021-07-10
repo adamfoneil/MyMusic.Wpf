@@ -58,12 +58,10 @@ namespace MyMusic.Wpf.Models
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     FilesCollection.Filter = (item) =>
-                    {
+                    {                        
                         if (item is Mp3File mp3File)
                         {
-                            // Filter comparison based on Title, Artist, Album, and Filename
-                            return mp3File.Title.ToLower().Contains(text.ToLower()) || mp3File.Artist.ToLower().Contains(text.ToLower())
-                            || mp3File.Album.ToLower().Contains(text.ToLower()) || mp3File.Filename.ToLower().Contains(text.ToLower());
+                            return mp3File.IsSearchHit(text);
                         }
                         return false;
                     };
