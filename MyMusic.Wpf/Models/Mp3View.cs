@@ -11,7 +11,7 @@ namespace MyMusic.Wpf.Models
         private IEnumerable<Mp3File> _allFiles;
         public IEnumerable<Mp3File> AllFiles
         {
-            get => _allFiles; 
+            get => _allFiles;
             set
             {
                 _allFiles = value;
@@ -27,7 +27,7 @@ namespace MyMusic.Wpf.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void NotifyOnProperyChanged([CallerMemberName]string propName=null)
+        public void NotifyOnProperyChanged([CallerMemberName] string propName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }

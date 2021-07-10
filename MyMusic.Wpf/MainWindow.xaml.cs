@@ -2,8 +2,6 @@
 using MyMusic.Wpf.Services;
 using Prism.Commands;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace MyMusic.Wpf
 {
@@ -14,12 +12,12 @@ namespace MyMusic.Wpf
         public MainWindow(MetadataCache cache)
         {
             _cache = cache;
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         public MetadataCache Cache => _cache;
 
-       
+
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
