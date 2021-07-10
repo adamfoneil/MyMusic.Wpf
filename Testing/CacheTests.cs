@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyMusic.Wpf.Services;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Testing
@@ -12,6 +13,12 @@ namespace Testing
         {
             var cache = new MetadataCache(@"C:\Users\adamo\OneDrive\Music");
             var files = await cache.GetMp3FilesAsync();
+        }
+
+        [TestMethod]
+        public void Mp3MetadataScan()
+        {
+            var result = Mp3Metadata.Scan(@"C:\Users\adamo\OneDrive\Music\Sonic Mayhem\Quake II Soundtrack").ToArray();
         }
     }
 }
