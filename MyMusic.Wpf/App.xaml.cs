@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
 using System.Windows;
 
@@ -20,7 +21,11 @@ namespace MyMusic.Wpf
 
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddSingleton(new MetadataCache(@"C:\Users\adamo\OneDrive\Music"));
+            var settings = Settings.Load();
+
+            services.AddSingleton(settings);
+            services.AddSingleton(new PlayHistory(settings.RootPath));
+            services.AddSingleton(new MetadataCache(settings.RootPath));
             services.AddSingleton<MainWindow>();
         }
 

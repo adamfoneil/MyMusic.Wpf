@@ -8,19 +8,21 @@ namespace MyMusic.Wpf
     public partial class MainWindow : Window
     {
         private readonly MetadataCache _cache;
+        private readonly Settings _settings;
 
-        public MainWindow(MetadataCache cache)
+        public MainWindow(MetadataCache cache, Settings settings)
         {
             _cache = cache;
+            _settings = settings;
             InitializeComponent();
         }
 
         public MetadataCache Cache => _cache;
 
-
-
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Title = "My Music - " +_settings.RootPath;
+
             var model = new Mp3View();
             model.AllFiles = await _cache.GetMp3FilesAsync();
             model.LoadTime = _cache.ScanTime;

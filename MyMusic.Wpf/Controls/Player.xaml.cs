@@ -18,11 +18,14 @@ namespace MyMusic.Wpf.Controls
 
         private readonly MediaPlayer _player;
         private readonly ObservableCollection<Mp3File> _playlist;
+        private readonly PlayHistory _history;
 
         private int _track;
 
         public Player()
         {
+            //_history = history; how can this be set with dependency injection? or is this not the right way?
+
             InitializeComponent();
             DataContext = this;
 

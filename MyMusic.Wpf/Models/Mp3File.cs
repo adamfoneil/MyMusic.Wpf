@@ -19,10 +19,10 @@ namespace MyMusic.Wpf.Models
 
         public string DisplayArtist =>
             !string.IsNullOrEmpty(Artist) ? Artist :
-            PathUtil.Folder(Filename, 2);
+            FileUtil.FolderName(Filename, 2);
 
         public string DisplayAlbum =>
             !string.IsNullOrEmpty(Album) ? Album :
-            PathUtil.Folder(Filename, 1);
+            FileUtil.FolderName(Filename, 1);
     }
 }
