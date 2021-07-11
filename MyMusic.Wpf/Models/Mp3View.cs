@@ -40,7 +40,6 @@ namespace MyMusic.Wpf.Models
             }
         }
 
-
         public ICommand PlayNextCommand { get; set; }
 
         public ICommand PlayAtEndCommand { get; set; }
@@ -48,25 +47,23 @@ namespace MyMusic.Wpf.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void SearchFiles(string text)
-        {
-            // Applyting filter based on search text.
-            if (FilesCollection != null)
+        {         
+            if (FilesCollection == null) return;
+
+            if (!string.IsNullOrWhiteSpace(text))
             {
-                if (!string.IsNullOrWhiteSpace(text))
+                FilesCollection.Filter = (item) =>
                 {
-                    FilesCollection.Filter = (item) =>
+                    if (item is Mp3File mp3File)
                     {
-                        if (item is Mp3File mp3File)
-                        {
-                            return mp3File.IsSearchHit(text);
-                        }
-                        return false;
-                    };
-                }
-                else // Resetting the filter.
-                {
-                    FilesCollection.Filter = null;
-                }
+                        return mp3File.IsSearchHit(text);
+                    }
+                    return false;
+                };
+            }
+            else // Resetting the filter.
+            {
+                FilesCollection.Filter = null;
             }
         }
 
