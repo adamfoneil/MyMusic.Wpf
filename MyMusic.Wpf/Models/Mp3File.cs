@@ -31,6 +31,7 @@ namespace MyMusic.Wpf.Models
         public bool IsSearchHit(string query) => 
             (IsTargetedSearch("artist:", query, DisplayArtist)) ? true :
             (IsTargetedSearch("album:", query, DisplayAlbum)) ? true :
+            (IsTargetedSearch("title:", query, DisplayTitle)) ? true :
             SearchValues.ContainsAny(query);
 
         private IEnumerable<string> SearchValues => new[]

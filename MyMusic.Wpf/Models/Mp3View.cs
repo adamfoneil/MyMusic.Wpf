@@ -20,9 +20,6 @@ namespace MyMusic.Wpf.Models
             }
         }
 
-        /// <summary>
-        /// I thought DataGrid would bind to this to provide searchable list.
-        /// </summary>
         public ICollectionView FilesCollection => CollectionViewSource.GetDefaultView(AllFiles);
 
         public TimeSpan LoadTime { get; set; }
