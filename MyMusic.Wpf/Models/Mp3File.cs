@@ -1,5 +1,8 @@
 ﻿using MyMusic.Wpf.Static;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MyMusic.Wpf.Models
 {
@@ -14,15 +17,38 @@ namespace MyMusic.Wpf.Models
         public int? TrackCount { get; set; }
 
         public string DisplayTitle =>
-            !string.IsNullOrEmpty(Title) ? Title :
+            !string.IsNullOrWhiteSpace(Title) ? Title :
             Path.GetFileName(Filename);
 
         public string DisplayArtist =>
-            !string.IsNullOrEmpty(Artist) ? Artist :
+            !string.IsNullOrWhiteSpace(Artist) ? Artist :
             FileUtil.FolderName(Filename, 2);
 
         public string DisplayAlbum =>
-            !string.IsNullOrEmpty(Album) ? Album :
+            !string.IsNullOrWhiteSpace(Album) ? Album :
             FileUtil.FolderName(Filename, 1);
+
+        public bool IsSearchHit(string query) => 
+            (IsTargetedSearch("artist:", query, DisplayArtist)) ? true :
+            (IsTargetedSearch("album:", query, DisplayAlbum)) ? true :
+            SearchValues.ContainsAny(query);
+
+        private IEnumerable<string> SearchValues => new[]
+        {
+            Filename,
+            DisplayArtist,
+            DisplayAlbum,
+            Title
+        }.Where(val => !string.IsNullOrWhiteSpace(val)).Select(val => val.ToLower());
+
+        private bool IsTargetedSearch(string token, string query, string stringValue)
+        {
+            if (query.StartsWith(token) && query.Length > token.Length)
+            {
+                return stringValue?.ToLower().StartsWith(query.Substring(token.Length)) ?? false;
+            }
+
+            return false;
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace MyMusic.Wpf
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Title = "My Music - " +_settings.RootPath;
+            Title = "My Music - " + _settings.RootPath;
 
             var model = new Mp3View();
             model.AllFiles = await _cache.GetMp3FilesAsync();
@@ -38,6 +38,9 @@ namespace MyMusic.Wpf
             model.LoadTime = _cache.ScanTime;
         }
 
+        /// <summary>
+        /// how to get rid of this?
+        /// </summary>        
         private void dgFiles_Mp3FileSelected(Mp3File mp3file)
         {
             player.PlayNow(mp3file);

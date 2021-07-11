@@ -1,7 +1,6 @@
 ﻿using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Static;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -31,15 +30,15 @@ namespace MyMusic.Wpf.Controls
         /// <value>
         /// The MP3 files.
         /// </value>
-        public IEnumerable<Mp3File> Mp3Files
+        public object Mp3Files
         {
-            get { return (IEnumerable<Mp3File>)GetValue(Mp3FilesProperty); }
+            get { return (object)GetValue(Mp3FilesProperty); }
             set { SetValue(Mp3FilesProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty Mp3FilesProperty =
-            DependencyProperty.Register("Mp3Files", typeof(IEnumerable<Mp3File>), typeof(Playlist), new PropertyMetadata(null));
+            DependencyProperty.Register("Mp3Files", typeof(object), typeof(Playlist), new PropertyMetadata(null));
 
 
 
@@ -49,7 +48,7 @@ namespace MyMusic.Wpf.Controls
         /// <value>
         /// The current track.
         /// </value>
-        public Mp3File CurrentTrack
+        public object CurrentTrack
         {
             get { return (Mp3File)GetValue(CurrentTrackProperty); }
             set { SetValue(CurrentTrackProperty, value); }
@@ -57,7 +56,7 @@ namespace MyMusic.Wpf.Controls
 
         // Using a DependencyProperty as the backing store for CurrentTrack.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentTrackProperty =
-            DependencyProperty.Register("CurrentTrack", typeof(Mp3File), typeof(Playlist), new PropertyMetadata(null));
+            DependencyProperty.Register("CurrentTrack", typeof(object), typeof(Playlist), new PropertyMetadata(null));
 
 
 
@@ -123,6 +122,5 @@ namespace MyMusic.Wpf.Controls
         }
 
         private void viewFileLocation_Click(object sender, RoutedEventArgs e) => FileUtil.RevealInExplorer((CurrentTrack as Mp3File).FullPath);
-                
     }
 }

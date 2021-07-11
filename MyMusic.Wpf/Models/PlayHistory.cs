@@ -9,7 +9,7 @@ namespace MyMusic.Wpf.Models
     public class PlayHistory : IDisposable
     {
         private readonly string _rootPath;
-        private readonly string _fileName;        
+        private readonly string _fileName;
         private readonly Dictionary<string, DateTime> _history;
 
         public PlayHistory(string rootPath)
