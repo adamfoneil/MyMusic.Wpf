@@ -29,10 +29,12 @@ namespace MyMusic.Wpf.Models
             FileUtil.FolderName(Filename, 1);
 
         public bool IsSearchHit(string query) => 
-            (IsTargetedSearch("artist:", query, DisplayArtist)) ? true :
-            (IsTargetedSearch("album:", query, DisplayAlbum)) ? true :
-            (IsTargetedSearch("title:", query, DisplayTitle)) ? true :
-            SearchValues.ContainsAny(query);
+            IsTargetedSearch(query, new[]
+            {
+                ("artist:", DisplayArtist),
+                ("album:", DisplayAlbum),
+                ("title:", DisplayTitle)
+            }) ? true : SearchValues.ContainsAny(query);
 
         private IEnumerable<string> SearchValues => new[]
         {
@@ -42,11 +44,14 @@ namespace MyMusic.Wpf.Models
             Title
         }.Where(val => !string.IsNullOrWhiteSpace(val)).Select(val => val.ToLower());
 
-        private bool IsTargetedSearch(string token, string query, string stringValue)
+        private bool IsTargetedSearch(string query, IEnumerable<(string token, string value)> options)
         {
-            if (query.StartsWith(token) && query.Length > token.Length)
+            foreach (var item in options)
             {
-                return stringValue?.ToLower().StartsWith(query.Substring(token.Length)) ?? false;
+                if (query.StartsWith(item.token) && query.Length > item.token.Length)
+                {
+                    return item.value?.ToLower().StartsWith(query.Substring(item.token.Length).Trim()) ?? false;
+                }
             }
 
             return false;
