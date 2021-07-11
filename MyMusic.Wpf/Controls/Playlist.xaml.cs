@@ -121,6 +121,6 @@ namespace MyMusic.Wpf.Controls
             Mp3FileSelected?.Invoke(mp3file);
         }
 
-        private void viewFileLocation_Click(object sender, RoutedEventArgs e) => FileUtil.RevealInExplorer(((sender as DataGrid).CurrentItem as Mp3File).FullPath);
+        private void viewFileLocation_Click(object sender, RoutedEventArgs e) => FileUtil.RevealInExplorer((CurrentTrack as Mp3File).FullPath);
     }
 }
