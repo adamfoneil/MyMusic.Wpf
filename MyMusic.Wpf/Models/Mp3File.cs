@@ -1,5 +1,4 @@
 ﻿using MyMusic.Wpf.Static;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,7 +27,7 @@ namespace MyMusic.Wpf.Models
             !string.IsNullOrWhiteSpace(Album) ? Album :
             FileUtil.FolderName(Filename, 1);
 
-        public bool IsSearchHit(string query) => 
+        public bool IsSearchHit(string query) =>
             IsTargetedSearch(query, new[]
             {
                 ("artist:", DisplayArtist),

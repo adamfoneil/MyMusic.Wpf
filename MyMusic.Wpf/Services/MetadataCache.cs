@@ -1,5 +1,4 @@
-﻿using Id3;
-using MyMusic.Wpf.Models;
+﻿using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Static;
 using System;
 using System.Collections.Generic;
