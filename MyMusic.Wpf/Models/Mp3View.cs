@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -21,6 +22,8 @@ namespace MyMusic.Wpf.Models
         }
 
         public ICollectionView FilesCollection => CollectionViewSource.GetDefaultView(AllFiles);
+
+        public ILookup<string, Mp3File> ArtistNodes => _allFiles.ToLookup(mp3 => mp3.Artist);        
 
         public TimeSpan LoadTime { get; set; }
 
