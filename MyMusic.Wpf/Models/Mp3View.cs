@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -6,30 +7,27 @@ using System.Windows.Input;
 
 namespace MyMusic.Wpf.Models
 {
-    public class Mp3View : INotifyPropertyChanged
+    public class Mp3View : BindableBase
     {
         private IEnumerable<Mp3File> _allFiles;
+        private TimeSpan _loadTime;
+
         public IEnumerable<Mp3File> AllFiles
         {
             get => _allFiles;
             set
             {
-                _allFiles = value;
-                NotifyOnProperyChanged();
+                SetProperty(ref _allFiles, value);
             }
         }
 
-        public TimeSpan LoadTime { get; set; }
-
-        public ICommand PlayNextCommand { get; set; }
-
-        public ICommand PlayAtEndCommand { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyOnProperyChanged([CallerMemberName] string propName = null)
+        public TimeSpan LoadTime
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            get => _loadTime;
+            set
+            {
+                SetProperty(ref _loadTime, value);
+            }
         }
     }
 }
