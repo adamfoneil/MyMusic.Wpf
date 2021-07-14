@@ -1,12 +1,10 @@
 ﻿using MyMusic.Wpf.Models;
-using MyMusic.Wpf.Services;
-using Prism.Commands;
 using System.Windows;
 
 namespace MyMusic.Wpf
 {
     public partial class MainWindow : Window
-    {        
+    {
         private readonly Settings _settings;
         private readonly MainWindowViewModel _mainWindowViewModel;
 
@@ -29,10 +27,10 @@ namespace MyMusic.Wpf
         /// </summary>        
         private void dgFiles_Mp3FileSelected(Mp3File mp3file)
         {
-            if(mp3file != null)
+            if (mp3file != null)
             {
                 _mainWindowViewModel.PlayerViewModel.PlayNow(mp3file);
-            }            
+            }
         }
     }
 }

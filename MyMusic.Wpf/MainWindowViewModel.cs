@@ -3,11 +3,6 @@ using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf
@@ -18,7 +13,7 @@ namespace MyMusic.Wpf
         private PlayerViewModel _playerViewModel;
         public MainWindowViewModel(MetadataCache cache, PlayerViewModel playerViewModel, Mp3View mp3View)
         {
-            _cache = cache;;
+            _cache = cache; ;
             _playerViewModel = playerViewModel;
             Mp3View = mp3View;
             RebuildCommand = new DelegateCommand(Rebuild);
@@ -36,7 +31,7 @@ namespace MyMusic.Wpf
 
         public PlayerViewModel PlayerViewModel
         {
-            get => _playerViewModel; 
+            get => _playerViewModel;
             set
             {
                 SetProperty(ref _playerViewModel, value);
