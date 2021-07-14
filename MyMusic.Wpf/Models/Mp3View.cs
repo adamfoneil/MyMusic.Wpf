@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -12,6 +13,7 @@ namespace MyMusic.Wpf.Models
     {
         private IEnumerable<Mp3File> _allFiles;
         private TimeSpan _loadTime;
+        private ICollectionView _filesCollection;
 
         public IEnumerable<Mp3File> AllFiles
         {
@@ -22,8 +24,15 @@ namespace MyMusic.Wpf.Models
                 FilesCollection = CollectionViewSource.GetDefaultView(AllFiles);
             }
         }
-
-        public ICollectionView FilesCollection { get; set; }
+        
+        public ICollectionView FilesCollection
+        {
+            get => _filesCollection;
+            set
+            {
+                SetProperty(ref _filesCollection, value);
+            }
+        }
 
         public TimeSpan LoadTime
         {
@@ -33,6 +42,7 @@ namespace MyMusic.Wpf.Models
                 SetProperty(ref _loadTime, value);
             }
         }
+        public ILookup<string, Mp3File> ArtistNodes => _allFiles.ToLookup(mp3 => mp3.Artist);        
 
         private string _searchText;
 

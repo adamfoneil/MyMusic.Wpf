@@ -52,11 +52,11 @@
         <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
+                    <TextBlock Text="{Binding Mp3View.AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
                     <TextBlock Margin="3,0,0,0">files</TextBlock>
                     <TextBlock Text="|" Margin="4,0,4,0"/>
                     <TextBlock>loaded in</TextBlock>
-                    <TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
+					<TextBlock Margin="3,0,0,0" Text="{Binding Mp3View.LoadTime, Mode=OneWay}"/>
                 </StackPanel>
             </StatusBarItem>
             <StatusBarItem DockPanel.Dock="Right">

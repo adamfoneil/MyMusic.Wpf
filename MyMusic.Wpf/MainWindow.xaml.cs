@@ -29,7 +29,10 @@ namespace MyMusic.Wpf
         /// </summary>        
         private void dgFiles_Mp3FileSelected(Mp3File mp3file)
         {
-            _mainWindowViewModel.PlayerViewModel.PlayNow(mp3file);
+            if(mp3file != null)
+            {
+                _mainWindowViewModel.PlayerViewModel.PlayNow(mp3file);
+            }            
         }
     }
 }
