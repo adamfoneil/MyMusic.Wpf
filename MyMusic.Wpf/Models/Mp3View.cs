@@ -1,31 +1,47 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf.Models
 {
-    public class Mp3View : INotifyPropertyChanged
+    public class Mp3View : BindableBase
     {
         private IEnumerable<Mp3File> _allFiles;
+        private TimeSpan _loadTime;
+        private ICollectionView _filesCollection;
+
         public IEnumerable<Mp3File> AllFiles
         {
             get => _allFiles;
             set
             {
-                _allFiles = value;
-                NotifyOnProperyChanged();
+                SetProperty(ref _allFiles, value);
+                FilesCollection = CollectionViewSource.GetDefaultView(AllFiles);
             }
         }
 
-        public ICollectionView FilesCollection => CollectionViewSource.GetDefaultView(AllFiles);
+        public ICollectionView FilesCollection
+        {
+            get => _filesCollection;
+            set
+            {
+                SetProperty(ref _filesCollection, value);
+            }
+        }
 
-        public ILookup<string, Mp3File> ArtistNodes => _allFiles.ToLookup(mp3 => mp3.Artist);        
-
-        public TimeSpan LoadTime { get; set; }
+        public TimeSpan LoadTime
+        {
+            get => _loadTime;
+            set
+            {
+                SetProperty(ref _loadTime, value);
+            }
+        }
+        public ILookup<string, Mp3File> ArtistNodes => _allFiles.ToLookup(mp3 => mp3.Artist);
 
         private string _searchText;
 
@@ -37,9 +53,8 @@ namespace MyMusic.Wpf.Models
             get { return _searchText; }
             set
             {
-                _searchText = value;
+                SetProperty(ref _searchText, value);
                 SearchFiles(_searchText);
-                NotifyOnProperyChanged();
             }
         }
 
@@ -47,8 +62,6 @@ namespace MyMusic.Wpf.Models
         public ICommand PlayNextCommand { get; set; }
 
         public ICommand PlayAtEndCommand { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void SearchFiles(string text)
         {
@@ -71,11 +84,6 @@ namespace MyMusic.Wpf.Models
                     FilesCollection.Filter = null;
                 }
             }
-        }
-
-        public void NotifyOnProperyChanged([CallerMemberName] string propName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

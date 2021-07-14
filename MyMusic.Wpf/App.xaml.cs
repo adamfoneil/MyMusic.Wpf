@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyMusic.Wpf.Controls;
 using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
 using System.Windows;
@@ -27,6 +28,9 @@ namespace MyMusic.Wpf
             services.AddSingleton(new PlayHistory(settings.RootPath));
             services.AddSingleton(new MetadataCache(settings.RootPath));
             services.AddSingleton<MainWindow>();
+            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<Mp3View>();
+            services.AddSingleton<PlayerViewModel>();
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
