@@ -24,6 +24,9 @@ namespace MyMusic.Wpf
             _mainWindowViewModel.LoadFiles();
         }
 
+        /// <summary>
+        /// how to get rid of this?
+        /// </summary>        
         private void dgFiles_Mp3FileSelected(Mp3File mp3file)
         {
             _mainWindowViewModel.PlayerViewModel.PlayNow(mp3file);

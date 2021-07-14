@@ -29,36 +29,40 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
-
-					<ToolBar Grid.Row="0">
-						<StackPanel Orientation="Horizontal">
-							<Button Name="btnRebuild" Command="{Binding RebuildCommand}">Rebuild</Button>
-						</StackPanel>
-					</ToolBar>
+					
+					<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="4">
+                        <Button  Name="btnRebuild" DockPanel.Dock="Left" Command="{Binding RebuildCommand}">Rebuild</Button>
+						<controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<TextBlock Text=""/>
+                    </DockPanel>
+					
 					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
-														 Mp3Files="{Binding Mp3View.AllFiles}"/>
+														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
 
 				</Grid>
 			</TabItem>
+
+            <TabItem Header="Showcase">
+                
+            </TabItem>
 		</TabControl>
 
-		<StatusBar Grid.Row="2">
-			<StackPanel Orientation="Horizontal">
-				<StatusBarItem>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Mp3View.AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
-						<TextBlock Margin="3,0,0,0">files</TextBlock>
-					</StackPanel>
-				</StatusBarItem>
-				<StatusBarItem>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock>loaded in</TextBlock>
-						<TextBlock Margin="3,0,0,0" Text="{Binding Mp3View.LoadTime, Mode=OneWay}"/>
-					</StackPanel>
-				</StatusBarItem>
-			</StackPanel>
-		</StatusBar>
-	</Grid>
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
+                    <TextBlock Margin="3,0,0,0">files</TextBlock>
+                    <TextBlock Text="|" Margin="4,0,4,0"/>
+                    <TextBlock>loaded in</TextBlock>
+                    <TextBlock Margin="3,0,0,0" Text="{Binding LoadTime, Mode=OneWay}"/>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem DockPanel.Dock="Right">
+                <Hyperlink>Settings...</Hyperlink>
+            </StatusBarItem>
+            <TextBlock Text=""/>
+        </DockPanel>
+    </Grid>
 </Window>

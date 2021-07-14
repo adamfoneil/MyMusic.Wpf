@@ -1,5 +1,4 @@
-﻿using Id3;
-using MyMusic.Wpf.Models;
+﻿using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Static;
 using System;
 using System.Collections.Generic;
@@ -76,40 +75,13 @@ namespace MyMusic.Wpf.Services
 
         private void UpdateMetadata(string cacheFile, IEnumerable<FileInfo> files, string hash, Mp3Folder mp3Folder)
         {
-            mp3Folder.Files = ScanMetadata(files);
+            mp3Folder.Files = Mp3Metadata.Scan(files);
             mp3Folder.Hash = hash;
             string json = JsonSerializer.Serialize(mp3Folder, new JsonSerializerOptions()
             {
                 WriteIndented = true
             });
             File.WriteAllText(cacheFile, json);
-        }
-
-        private IEnumerable<Mp3File> ScanMetadata(IEnumerable<FileInfo> files)
-        {
-            return files.Select(fi =>
-            {
-                using (var mp3 = new Mp3(fi.FullName, Mp3Permissions.Read))
-                {
-                    var result = new Mp3File() { Filename = fi.Name, FullPath = fi.FullName };
-
-                    var tag = mp3.GetTag(Id3TagFamily.Version2X);
-                    if (tag != null)
-                    {
-                        result.Artist = tag.Artists;
-                        result.Album = tag.Album;
-                        result.Title = tag.Title;
-
-                        if (tag.Track.IsAssigned)
-                        {
-                            result.TrackNumber = tag.Track.Value;
-                            result.TrackCount = tag.Track.TrackCount;
-                        }
-                    }
-
-                    return result;
-                }
-            });
         }
     }
 }
