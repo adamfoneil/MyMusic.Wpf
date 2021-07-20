@@ -60,7 +60,7 @@
                 </StackPanel>
             </StatusBarItem>
             <StatusBarItem DockPanel.Dock="Right">
-                <Hyperlink>Settings...</Hyperlink>
+				<Hyperlink Command="{Binding SettingsCommand}" CommandParameter="{Binding ElementName=mainWindow}">Settings...</Hyperlink>
             </StatusBarItem>
             <TextBlock Text=""/>
         </DockPanel>

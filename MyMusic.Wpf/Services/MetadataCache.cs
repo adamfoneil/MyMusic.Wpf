@@ -19,7 +19,7 @@ namespace MyMusic.Wpf.Services
             RootPath = rootPath;
         }
 
-        public string RootPath { get; }
+        public string RootPath { get; private set; }
         public TimeSpan ScanTime { get; private set; }
 
         public async Task<IEnumerable<Mp3File>> GetMp3FilesAsync(bool rebuild = false)
@@ -82,6 +82,11 @@ namespace MyMusic.Wpf.Services
                 WriteIndented = true
             });
             File.WriteAllText(cacheFile, json);
+        }
+
+        public void ChangeRootPath(string path)
+        {
+            RootPath = path;
         }
     }
 }
