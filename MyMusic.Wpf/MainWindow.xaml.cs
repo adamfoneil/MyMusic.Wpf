@@ -11,9 +11,15 @@ namespace MyMusic.Wpf
         public MainWindow(Settings settings, MainWindowViewModel mainWindowViewModel)
         {
             _settings = settings;
+            _settings.RootPathChanged += _settings_RootPathChanged; 
             InitializeComponent();
             _mainWindowViewModel = mainWindowViewModel;
             DataContext = mainWindowViewModel;
+        }
+
+        private void _settings_RootPathChanged(string obj)
+        {
+            Title = "My Music - " + obj;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

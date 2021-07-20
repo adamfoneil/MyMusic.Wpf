@@ -2,6 +2,8 @@
 using MyMusic.Wpf.Controls;
 using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
+using MyMusic.Wpf.ViewModels;
+using MyMusic.Wpf.Views;
 using System.Windows;
 
 namespace MyMusic.Wpf
@@ -23,7 +25,7 @@ namespace MyMusic.Wpf
         private void ConfigureServices(ServiceCollection services)
         {
             var settings = Settings.Load();
-
+            settings.RootPathChanged += Settings_RootPathChanged;
             services.AddSingleton(settings);
             services.AddSingleton(new PlayHistory(settings.RootPath));
             services.AddSingleton(new MetadataCache(settings.RootPath));
@@ -31,6 +33,13 @@ namespace MyMusic.Wpf
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<Mp3View>();
             services.AddSingleton<PlayerViewModel>();
+            services.AddSingleton<SettingsViewModel>();
+        }
+
+        private void Settings_RootPathChanged(string obj)
+        {
+            var metadataCache = _serviceProvider.GetService<MetadataCache>();
+            metadataCache.ChangeRootPath(obj);
         }
 
         private void OnStartup(object sender, StartupEventArgs e)

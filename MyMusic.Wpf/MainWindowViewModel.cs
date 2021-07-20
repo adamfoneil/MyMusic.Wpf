@@ -1,8 +1,12 @@
 ﻿using MyMusic.Wpf.Controls;
 using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
+using MyMusic.Wpf.ViewModels;
+using MyMusic.Wpf.Views;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf
@@ -11,15 +15,19 @@ namespace MyMusic.Wpf
     {
         private MetadataCache _cache;
         private PlayerViewModel _playerViewModel;
-        public MainWindowViewModel(MetadataCache cache, PlayerViewModel playerViewModel, Mp3View mp3View)
+        private SettingsViewModel _settingsViewModel;
+
+        public MainWindowViewModel(MetadataCache cache, PlayerViewModel playerViewModel, Mp3View mp3View, SettingsViewModel settingsViewModel)
         {
             _cache = cache; ;
             _playerViewModel = playerViewModel;
+            _settingsViewModel = settingsViewModel;
             Mp3View = mp3View;
             RebuildCommand = new DelegateCommand(Rebuild);
             PlayNextCommand = new DelegateCommand<Mp3File>(mp3 => PlayNext(mp3));
-            PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3));
-        }
+            PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3));;
+            SettingsCommand = new DelegateCommand<Window>(OpenSettingsView);
+        }        
 
         public Mp3View Mp3View { get; set; }
 
@@ -29,12 +37,25 @@ namespace MyMusic.Wpf
 
         public ICommand PlayNextCommand { get; set; }
 
+        public ICommand SettingsCommand { get; set; }
+
         public PlayerViewModel PlayerViewModel
         {
             get => _playerViewModel;
             set
             {
                 SetProperty(ref _playerViewModel, value);
+            }
+        }
+
+        private void OpenSettingsView(Window obj)
+        {
+            SettingsView settingsView = new SettingsView(_settingsViewModel);
+            settingsView.Owner = obj;
+            var result = settingsView.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                Rebuild();
             }
         }
 
