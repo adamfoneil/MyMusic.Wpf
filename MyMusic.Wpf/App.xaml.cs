@@ -33,7 +33,7 @@ namespace MyMusic.Wpf
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<Mp3View>();
             services.AddSingleton<PlayerViewModel>();
-            services.AddTransient<SettingsViewModel>();
+            services.AddSingleton<SettingsViewModel>();
         }
 
         private void Settings_RootPathChanged(string obj)
