@@ -11,15 +11,23 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Vertical" Grid.Row="0">
-            <TextBlock Text="{Binding CurrentTrack.Title}" FontSize="36pt"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding CurrentTrack.Artist}" FontSize="16pt"/>
-                <TextBlock Text="|" FontSize="16pt"/>
-                <TextBlock Text="{Binding CurrentTrack.Album}" FontSize="16pt"/>
-            </StackPanel>
-        </StackPanel>
+		<Grid  Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<local:PlayerControls Margin="10 0" MediaPlayer="{Binding MediaPlayer}" CurrentTrack="{Binding CurrentTrack}"
+														PlayNextCommand="{Binding PlayNextCommand}" PlayPreviousCommand="{Binding PlayPreviousCommand}"/>
+			<StackPanel Orientation="Vertical" Grid.Row="1">
+				<TextBlock Text="{Binding CurrentTrack.Title}" FontSize="36pt"/>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding CurrentTrack.Artist}" FontSize="16pt"/>
+					<TextBlock Text=" | " FontSize="16pt"/>
+					<TextBlock Text="{Binding CurrentTrack.Album}" FontSize="16pt"/>
+				</StackPanel>
+			</StackPanel>
+		</Grid>
+        
 		<local:Playlist x:Name="playlistControl" Mp3FileSelected="playlistControl_Mp3FileSelected" Grid.Row="1" CurrentTrack="{Binding CurrentTrack}" Mp3Files="{Binding Playlist}"/>
 	</Grid>
 </UserControl>
