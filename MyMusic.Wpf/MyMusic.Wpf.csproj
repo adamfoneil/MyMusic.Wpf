@@ -8,9 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\next.png" />
+    <None Remove="Icons\pause.png" />
+    <None Remove="Icons\play.png" />
+    <None Remove="Icons\previous.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ID3" Version="0.6.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\next.png" />
+    <Resource Include="Icons\pause.png" />
+    <Resource Include="Icons\play.png" />
+    <Resource Include="Icons\previous.png" />
   </ItemGroup>
 
 </Project>
