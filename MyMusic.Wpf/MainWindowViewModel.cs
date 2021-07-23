@@ -5,7 +5,6 @@ using MyMusic.Wpf.ViewModels;
 using MyMusic.Wpf.Views;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -25,9 +24,9 @@ namespace MyMusic.Wpf
             Mp3View = mp3View;
             RebuildCommand = new DelegateCommand(Rebuild);
             PlayNextCommand = new DelegateCommand<Mp3File>(mp3 => PlayNext(mp3));
-            PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3));;
+            PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3)); ;
             SettingsCommand = new DelegateCommand<Window>(OpenSettingsView);
-        }        
+        }
 
         public Mp3View Mp3View { get; set; }
 

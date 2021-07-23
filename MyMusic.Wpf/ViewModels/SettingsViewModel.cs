@@ -1,11 +1,6 @@
 ﻿using MyMusic.Wpf.Models;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -28,7 +23,7 @@ namespace MyMusic.Wpf.ViewModels
             SelectDirectoryCommand = new DelegateCommand(SelectDirectory);
             OkayCommand = new DelegateCommand<Window>(ExecuteOkay);
             CancelCommand = new DelegateCommand<Window>(ExecuteCancel);
-        }       
+        }
 
         /// <summary>
         /// Gets or sets the select directory command.
@@ -59,7 +54,7 @@ namespace MyMusic.Wpf.ViewModels
 
         private void ExecuteCancel(Window obj)
         {
-            if(obj != null)
+            if (obj != null)
             {
                 obj.DialogResult = false;
                 obj.Close();
@@ -68,7 +63,7 @@ namespace MyMusic.Wpf.ViewModels
 
         private void ExecuteOkay(Window obj)
         {
-            if(obj != null)
+            if (obj != null)
             {
                 obj.DialogResult = true;
                 _settings.RootPath = RootPath;

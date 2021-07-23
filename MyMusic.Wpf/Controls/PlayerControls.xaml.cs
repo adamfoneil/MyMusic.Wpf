@@ -1,19 +1,10 @@
 ﻿using MyMusic.Wpf.Models;
 using Prism.Commands;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace MyMusic.Wpf.Controls
@@ -37,7 +28,7 @@ namespace MyMusic.Wpf.Controls
 
         private void _timer_Tick(object sender, EventArgs e)
         {
-           if(!_isDragging)
+            if (!_isDragging)
             {
                 seekBar.Value = MediaPlayer.Position.TotalSeconds;
                 runningTimeLabel.Text = $"{MediaPlayer.Position:mm\\:ss}";
@@ -46,7 +37,7 @@ namespace MyMusic.Wpf.Controls
 
         private void PlayButton_Click()
         {
-            if(IsPlaying)
+            if (IsPlaying)
             {
                 MediaPlayer.Pause();
                 IsPlaying = false;
@@ -85,7 +76,7 @@ namespace MyMusic.Wpf.Controls
         private void MediaPlayer_MediaOpened(object sender, EventArgs e)
         {
             IsPlaying = true;
-            if(MediaPlayer.NaturalDuration.HasTimeSpan)
+            if (MediaPlayer.NaturalDuration.HasTimeSpan)
             {
                 TimeSpan ts = MediaPlayer.NaturalDuration.TimeSpan;
                 totalDurationLabel.Text = $"{ts:mm\\:ss}";
@@ -93,7 +84,7 @@ namespace MyMusic.Wpf.Controls
                 seekBar.Maximum = MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                 seekBar.SmallChange = 1;
                 seekBar.LargeChange = Math.Min(10, ts.Seconds / 10);
-            }            
+            }
             _timer.Start();
         }
 
@@ -103,7 +94,7 @@ namespace MyMusic.Wpf.Controls
             set
             {
                 _isPlaying = value;
-                if(_isPlaying)
+                if (_isPlaying)
                 {
                     playButton.Visibility = Visibility.Collapsed;
                     pauseButton.Visibility = Visibility.Visible;
@@ -125,7 +116,7 @@ namespace MyMusic.Wpf.Controls
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentTrackProperty =
-            DependencyProperty.Register("CurrentTrack", typeof(Mp3File), typeof(PlayerControls), new PropertyMetadata(null, (sender,args) => 
+            DependencyProperty.Register("CurrentTrack", typeof(Mp3File), typeof(PlayerControls), new PropertyMetadata(null, (sender, args) =>
             {
                 if (sender is PlayerControls playerControls)
                 {

@@ -11,7 +11,7 @@ namespace MyMusic.Wpf
         public MainWindow(Settings settings, MainWindowViewModel mainWindowViewModel)
         {
             _settings = settings;
-            _settings.RootPathChanged += _settings_RootPathChanged; 
+            _settings.RootPathChanged += _settings_RootPathChanged;
             InitializeComponent();
             _mainWindowViewModel = mainWindowViewModel;
             DataContext = mainWindowViewModel;

@@ -3,7 +3,6 @@ using MyMusic.Wpf.Controls;
 using MyMusic.Wpf.Models;
 using MyMusic.Wpf.Services;
 using MyMusic.Wpf.ViewModels;
-using MyMusic.Wpf.Views;
 using System.Windows;
 
 namespace MyMusic.Wpf

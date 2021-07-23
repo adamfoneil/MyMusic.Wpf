@@ -5,7 +5,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MyMusic.Wpf.Controls
@@ -23,16 +22,16 @@ namespace MyMusic.Wpf.Controls
             _history = playHistory;
 
             _player = new MediaPlayer();
-            _player.MediaEnded += player_MediaEnded;                  
+            _player.MediaEnded += player_MediaEnded;
 
             _playlist = new ObservableCollection<Mp3File>();
             _playlist.CollectionChanged += PlaylistChanged;
-            PlayNextCommand = new DelegateCommand(PlayNextTrack, () => 
+            PlayNextCommand = new DelegateCommand(PlayNextTrack, () =>
             {
                 int currentTrackIndex = _playlist.IndexOf(CurrentTrack);
                 return currentTrackIndex > -1 && currentTrackIndex + 1 < _playlist.Count;
             });
-            PlayPreviousCommand = new DelegateCommand(PlayPreviousTrack, () => 
+            PlayPreviousCommand = new DelegateCommand(PlayPreviousTrack, () =>
             {
                 int currentTrackIndex = _playlist.IndexOf(CurrentTrack);
                 return currentTrackIndex > -1 && currentTrackIndex > 0;
@@ -112,7 +111,7 @@ namespace MyMusic.Wpf.Controls
                     if (File.Exists(value?.FullPath))
                     {
                         _player.Open(new Uri($"file://{value.FullPath}"));
-                        _player.Play();                        
+                        _player.Play();
                     }
                     else
                     {
