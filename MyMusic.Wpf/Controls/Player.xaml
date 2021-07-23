@@ -16,9 +16,9 @@
 				<RowDefinition/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
-			<local:PlayerControls Margin="10 0" MediaPlayer="{Binding MediaPlayer}" CurrentTrack="{Binding CurrentTrack}"
-														PlayNextCommand="{Binding PlayNextCommand}" PlayPreviousCommand="{Binding PlayPreviousCommand}"/>
-			<StackPanel Orientation="Vertical" Grid.Row="1">
+			<local:PlayerControls Margin="10,5,10,5" MediaPlayer="{Binding MediaPlayer}" CurrentTrack="{Binding CurrentTrack}"
+														PlayNextCommand="{Binding PlayNextCommand}" PlayPreviousCommand="{Binding PlayPreviousCommand}" Grid.Row="1"/>
+			<StackPanel Orientation="Vertical" Grid.Row="0">
 				<TextBlock Text="{Binding CurrentTrack.Title}" FontSize="36pt"/>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="{Binding CurrentTrack.Artist}" FontSize="16pt"/>

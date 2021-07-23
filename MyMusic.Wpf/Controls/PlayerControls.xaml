@@ -12,21 +12,10 @@
 	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="30"/>
-			<RowDefinition Height="30"/>
-			<RowDefinition Height="0"/>
-		</Grid.RowDefinitions>
-		<Grid VerticalAlignment="Center">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="34"/>
-				<ColumnDefinition/>
-				<ColumnDefinition Width="34"/>
-			</Grid.ColumnDefinitions>
-			<TextBlock x:Name="runningTimeLabel" Text="00:00" />
-			<Slider x:Name="seekBar" Grid.Column="1" IsMoveToPointEnabled="True" Thumb.DragStarted="seekBar_DragStarted" Thumb.DragCompleted="seekBar_DragCompleted" />
-			<TextBlock x:Name="totalDurationLabel" Text="00:00" HorizontalAlignment="Right" Grid.Column="2" />
-		</Grid>
-		<StackPanel Height="30" Orientation="Horizontal" Grid.Row="1">
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+		
+		<DockPanel Height="30" Grid.Row="1" LastChildFill="True">
 			<Button x:Name="prevButton" Width="{StaticResource controlWidth}" Command="{Binding PlayPreviousCommand}" ToolTip="Play Previous Track">
 				<Viewbox Height="20" Width="20" >
 					<Image Source="/Icons/previous.png" />
@@ -42,11 +31,21 @@
 					<Image Source="/Icons/play.png" />
 				</Viewbox>
 			</Button>
-			<Button x:Name="nextButton" Width="{StaticResource controlWidth}" Command="{Binding PlayNextCommand}" ToolTip="Play Next Track">
+			<Button x:Name="nextButton" Width="{StaticResource controlWidth}" Command="{Binding PlayNextCommand}" ToolTip="Play Next Track" Margin="5,0,5,0">
 				<Viewbox Height="20" Width="20" >
 					<Image Source="/Icons/next.png" />
 				</Viewbox>
 			</Button>
-		</StackPanel>
+            <Grid VerticalAlignment="Center" Margin="5,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="34"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="34"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="runningTimeLabel" Text="00:00" />
+                <Slider x:Name="seekBar" Grid.Column="1" IsMoveToPointEnabled="True" Thumb.DragStarted="seekBar_DragStarted" Thumb.DragCompleted="seekBar_DragCompleted" />
+                <TextBlock x:Name="totalDurationLabel" Text="00:00" HorizontalAlignment="Right" Grid.Column="2" />
+            </Grid>
+        </DockPanel>
 	</Grid>
 </UserControl>
