@@ -34,6 +34,12 @@
                         <Button Width="80px">List</Button>
                         <Button Width="80px">Artists</Button>
                         <Button Width="80px">Albums</Button>
+
+                        <ComboBox Width="120px">
+                            <ComboBoxItem>All</ComboBoxItem>
+                            <ComboBoxItem>Recently Added</ComboBoxItem>
+                            <ComboBoxItem>Recently Played</ComboBoxItem>
+                        </ComboBox>
                         
                         <controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text=""/>
