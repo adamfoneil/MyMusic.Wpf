@@ -26,11 +26,13 @@ namespace MyMusic.Wpf.Controls
 
             _playlist = new ObservableCollection<Mp3File>();
             _playlist.CollectionChanged += PlaylistChanged;
+
             PlayNextCommand = new DelegateCommand(PlayNextTrack, () =>
             {
                 int currentTrackIndex = _playlist.IndexOf(CurrentTrack);
                 return currentTrackIndex > -1 && currentTrackIndex + 1 < _playlist.Count;
             });
+
             PlayPreviousCommand = new DelegateCommand(PlayPreviousTrack, () =>
             {
                 int currentTrackIndex = _playlist.IndexOf(CurrentTrack);
@@ -91,7 +93,14 @@ namespace MyMusic.Wpf.Controls
 
         public void PlayNext(Mp3File file)
         {
-            _playlist.Insert(_playlist.Count > 0 ? 1 : 0, file);
+            try
+            {
+                _playlist.Insert(_track + 1, file);
+            }
+            catch 
+            {
+                PlayAtEnd(file);
+            }
         }
 
         public void PlayAtEnd(Mp3File file)
@@ -108,6 +117,7 @@ namespace MyMusic.Wpf.Controls
             {
                 if (value != _file)
                 {
+                    _track = _playlist.IndexOf(value);
                     if (File.Exists(value?.FullPath))
                     {
                         _player.Open(new Uri($"file://{value.FullPath}"));
