@@ -19,35 +19,31 @@
 		</Grid.RowDefinitions>
 
 		<TabControl Grid.Row="1">
-			<TabItem Header="Now Playing">
+			<TabItem Header="Now Playing" Width="100" Height="30">
 				<controls:Player DataContext="{Binding PlayerViewModel}" x:Name="player"/>
 			</TabItem>
 
-			<TabItem Header="All Files">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="*"/>
-					</Grid.RowDefinitions>
-					
-					<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="4">
+            <TabItem Header="All Files" Width="100" Height="30">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="4">
                         <Button  Name="btnRebuild" DockPanel.Dock="Left" Command="{Binding RebuildCommand}">Rebuild</Button>
-						<controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-						<TextBlock Text=""/>
+                        <controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text=""/>
                     </DockPanel>
-					
-					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
+
+                    <controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
 
-				</Grid>
-			</TabItem>
-
-            <TabItem Header="Showcase">
-                
+                </Grid>
             </TabItem>
-		</TabControl>
+        </TabControl>
 
         <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
             <StatusBarItem>

@@ -16,7 +16,7 @@
 				<RowDefinition/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
-			<local:PlayerControls Margin="10,5,10,5" MediaPlayer="{Binding MediaPlayer}" CurrentTrack="{Binding CurrentTrack}"
+			<local:PlayerControls Margin="10,5,10,10" MediaPlayer="{Binding MediaPlayer}" CurrentTrack="{Binding CurrentTrack}"
 														PlayNextCommand="{Binding PlayNextCommand}" PlayPreviousCommand="{Binding PlayPreviousCommand}" Grid.Row="1"/>
 			<StackPanel Orientation="Vertical" Grid.Row="0" Margin="10,5,10,5">
 				<TextBlock Text="{Binding CurrentTrack.Title}" FontSize="36pt"/>
