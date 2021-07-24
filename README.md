@@ -1,6 +1,6 @@
 # Why another MP3 player?
 
-I've been wanting to learn XAML/WPF for a long time, *and* there are some features of MP3 players that I've been wanting. Most of the work by far has been done by [https://github.com/sabapathygithub](Sabapathy), and I've been learning from his contributions. I still find XAML and its MVVM architecture kind of complicated. Oh well.
+I've been wanting to learn XAML/WPF for a long time, *and* there are some features of MP3 players that I've been wanting. Most of the work by far has been done by [Sabapathy](https://github.com/sabapathygithub), and I've been learning from his contributions. I still find XAML and its MVVM architecture kind of complicated. Oh well.
 
 Play Next vs Play at End. Sometimes I want a song to play immediately next, sometimes at the end of the current queue.
 
