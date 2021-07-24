@@ -31,7 +31,10 @@
                     </Grid.RowDefinitions>
 
                     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="4">
-                        <Button  Name="btnRebuild" DockPanel.Dock="Left" Command="{Binding RebuildCommand}">Rebuild</Button>
+                        <Button Width="80px">List</Button>
+                        <Button Width="80px">Artists</Button>
+                        <Button Width="80px">Albums</Button>
+                        
                         <controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text=""/>
                     </DockPanel>
