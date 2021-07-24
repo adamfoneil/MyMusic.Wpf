@@ -10,36 +10,35 @@ namespace MyMusic.Wpf.Services
     {
         public static IEnumerable<Mp3File> Scan(string folder)
         {
-            var fileInfos = Directory.GetFiles(folder).Select(fileName => new FileInfo(fileName));
-            return Scan(fileInfos);
+            return Directory.GetFiles(folder).Select(fileName => ScanFile(fileName));            
         }
 
-        public static IEnumerable<Mp3File> Scan(IEnumerable<FileInfo> files)
+        public static Mp3File ScanFile(string fileName)
         {
-            return files.Select(fi =>
+            using (var mp3 = new Mp3(fileName, Mp3Permissions.Read))
             {
-                using (var mp3 = new Mp3(fi.FullName, Mp3Permissions.Read))
+                var result = new Mp3File() { Filename = Path.GetFileName(fileName), FullPath = fileName };
+
+                var tag = mp3.GetTag(Id3TagFamily.Version2X) ?? mp3.GetTag(Id3TagFamily.Version1X);
+                if (tag != null)
                 {
-                    var result = new Mp3File() { Filename = fi.Name, FullPath = fi.FullName };
+                    result.Artist = tag.Artists;
+                    result.Album = tag.Album;
+                    result.Title = tag.Title;
 
-                    var tag = mp3.GetTag(Id3TagFamily.Version2X) ?? mp3.GetTag(Id3TagFamily.Version1X);
-                    if (tag != null)
+                    if (tag.Track.IsAssigned)
                     {
-                        result.Artist = tag.Artists;
-                        result.Album = tag.Album;
-                        result.Title = tag.Title;
-
-                        if (tag.Track.IsAssigned)
-                        {
-                            result.TrackNumber = tag.Track.Value;
-                            result.TrackCount = tag.Track.TrackCount;
-                        }
+                        result.TrackNumber = tag.Track.Value;
+                        result.TrackCount = tag.Track.TrackCount;
                     }
-
-                    return result;
                 }
-            });
+
+                return result;
+            }
         }
 
+        public static IEnumerable<Mp3File> Scan(IEnumerable<string> files) => files.Select(path => ScanFile(path));
+
+        public static IEnumerable<Mp3File> Scan(IEnumerable<FileInfo> files) => files.Select(fi => ScanFile(fi.FullName));
     }
 }

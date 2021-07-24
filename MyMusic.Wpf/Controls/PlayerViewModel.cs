@@ -116,12 +116,13 @@ namespace MyMusic.Wpf.Controls
             private set
             {
                 if (value != _file)
-                {
-                    _track = _playlist.IndexOf(value);
+                {                    
                     if (File.Exists(value?.FullPath))
                     {
+                        _track = _playlist.IndexOf(value);
                         _player.Open(new Uri($"file://{value.FullPath}"));
                         _player.Play();
+                        _history.Add(value.FullPath);
                     }
                     else
                     {

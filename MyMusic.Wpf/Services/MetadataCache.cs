@@ -48,6 +48,31 @@ namespace MyMusic.Wpf.Services
             return results;
         }
 
+        public async Task<IEnumerable<Mp3File>> GetMp3FilesAsync(IEnumerable<string> fileNames)
+        {
+            List<Mp3File> results = new List<Mp3File>();
+
+            await Task.Run(() =>
+            {
+                foreach (var fileName in fileNames)
+                {
+                    var path = Path.GetDirectoryName(fileName);
+                    var cacheFile = Path.Combine(path, _folderCache);
+                    var mp3File = File.Exists(cacheFile) ? FromMetadata(cacheFile, fileName) : Mp3Metadata.ScanFile(fileName);
+                }
+            });
+
+            return results;
+        }
+
+        private Mp3File FromMetadata(string meta, string fileName)
+        {
+            var json = File.ReadAllText(meta);
+            var mp3Folder = JsonSerializer.Deserialize<Mp3Folder>(json);
+            var files = mp3Folder.Files.ToDictionary(item => item.FullPath);
+            return files.ContainsKey(fileName) ? files[fileName] : Mp3Metadata.ScanFile(fileName);
+        }
+
         private IEnumerable<Mp3File> GetCachedMetadata(string path, IEnumerable<FileInfo> files)
         {
             var cacheFile = Path.Combine(path, _folderCache);
