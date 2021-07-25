@@ -1,6 +1,8 @@
 ﻿using MyMusic.Wpf.Static;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace MyMusic.Wpf.Models
 {
@@ -13,6 +15,10 @@ namespace MyMusic.Wpf.Models
         public string Title { get; set; }
         public int? TrackNumber { get; set; }
         public int? TrackCount { get; set; }
+        public DateTime? DateAdded { get; set; }
+
+        [JsonIgnore]
+        public DateTime? LastPlayed { get; set; }
 
         public bool IsSearchHit(string query) =>
             IsTargetedSearch(query, new[]

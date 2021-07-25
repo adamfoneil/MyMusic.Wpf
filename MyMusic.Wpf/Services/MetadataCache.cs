@@ -13,7 +13,7 @@ namespace MyMusic.Wpf.Services
     public class MetadataCache
     {
         private const string _folderCache = "meta.json";
-
+        
         public MetadataCache(string rootPath)
         {
             RootPath = rootPath;
@@ -95,7 +95,7 @@ namespace MyMusic.Wpf.Services
         {
             var cacheFile = Path.Combine(path, _folderCache);
 
-            var hashInput = string.Join("\r\n", fileInfos.Select(fi => $"{fi.Name}:{fi.LastWriteTimeUtc}:{fi.Length}"));
+            var hashInput = string.Join("\r\n", fileInfos.Select(fi => $"{fi.Name}:{fi.LastWriteTimeUtc}:{fi.CreationTimeUtc}:{fi.Length}"));
             var hash = HashHelper.Md5(hashInput);
             
             if (File.Exists(cacheFile))
