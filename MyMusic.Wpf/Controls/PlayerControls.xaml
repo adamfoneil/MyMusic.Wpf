@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 		
-		<DockPanel Height="30" Grid.Row="1" LastChildFill="True">
+		<DockPanel Height="30" Grid.Row="0" LastChildFill="True">
 			<Button x:Name="prevButton" Width="{StaticResource controlWidth}" Command="{Binding PlayPreviousCommand}" ToolTip="Play Previous Track">
 				<Viewbox Height="20" Width="20" >
 					<Image Source="/Icons/previous.png" />
