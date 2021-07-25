@@ -71,13 +71,15 @@ namespace MyMusic.Wpf.Services
         /// </summary>        
         public void Rescan(string fileName)
         {
-            var cacheFile = Path.Combine(Path.GetDirectoryName(fileName), _folderCache);
+            var path = Path.GetDirectoryName(fileName);
+            var cacheFile = Path.Combine(path, _folderCache);
 
             if (File.Exists(cacheFile))
             {
                 File.Delete(cacheFile);
-
-                // raise an event to refresh display
+                var fileInfos = Directory.GetFiles(path, "*.mp3", SearchOption.TopDirectoryOnly).Select(fileName => new FileInfo(fileName));
+                GetCachedMetadata(path, fileInfos);
+                // todo: raise an event to refresh display
             }
         }
 
@@ -89,28 +91,27 @@ namespace MyMusic.Wpf.Services
             return files.ContainsKey(fileName) ? files[fileName] : Mp3Metadata.ScanFile(fileName);
         }
 
-        private IEnumerable<Mp3File> GetCachedMetadata(string path, IEnumerable<FileInfo> files)
+        private IEnumerable<Mp3File> GetCachedMetadata(string path, IEnumerable<FileInfo> fileInfos)
         {
             var cacheFile = Path.Combine(path, _folderCache);
 
-            var hashInput = string.Join("\r\n", files.Select(fi => $"{fi.Name}:{fi.LastWriteTimeUtc}:{fi.Length}"));
+            var hashInput = string.Join("\r\n", fileInfos.Select(fi => $"{fi.Name}:{fi.LastWriteTimeUtc}:{fi.Length}"));
             var hash = HashHelper.Md5(hashInput);
-
-            var cachePath = Path.Combine(path, _folderCache);
-            if (File.Exists(cachePath))
+            
+            if (File.Exists(cacheFile))
             {
                 var json = File.ReadAllText(cacheFile);
                 var mp3Folder = JsonSerializer.Deserialize<Mp3Folder>(json);
                 if (!hash.Equals(mp3Folder.Hash))
                 {
-                    UpdateMetadata(cachePath, files, hash, mp3Folder);
+                    UpdateMetadata(cacheFile, fileInfos, hash, mp3Folder);
                 }
 
                 return mp3Folder.Files;
             }
 
             var folder = new Mp3Folder();
-            UpdateMetadata(cachePath, files, hash, folder);
+            UpdateMetadata(cacheFile, fileInfos, hash, folder);
             return folder.Files;
         }
 
