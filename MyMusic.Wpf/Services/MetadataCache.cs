@@ -65,6 +65,22 @@ namespace MyMusic.Wpf.Services
             return results;
         }
 
+        /// <summary>
+        /// deletes the cache info for the folder containing the specified file,
+        /// then raises an event to update the display
+        /// </summary>        
+        public void Rescan(string fileName)
+        {
+            var cacheFile = Path.Combine(Path.GetDirectoryName(fileName), _folderCache);
+
+            if (File.Exists(cacheFile))
+            {
+                File.Delete(cacheFile);
+
+                // raise an event to refresh display
+            }
+        }
+
         private Mp3File FromMetadata(string meta, string fileName)
         {
             var json = File.ReadAllText(meta);

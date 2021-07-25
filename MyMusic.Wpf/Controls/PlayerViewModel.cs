@@ -97,7 +97,7 @@ namespace MyMusic.Wpf.Controls
             {
                 _playlist.Insert(_track + 1, file);
             }
-            catch 
+            catch
             {
                 PlayAtEnd(file);
             }
@@ -116,7 +116,7 @@ namespace MyMusic.Wpf.Controls
             private set
             {
                 if (value != _file)
-                {                    
+                {
                     if (File.Exists(value?.FullPath))
                     {
                         _track = _playlist.IndexOf(value);

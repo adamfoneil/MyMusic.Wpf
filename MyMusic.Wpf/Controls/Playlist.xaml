@@ -12,10 +12,10 @@
 	<Grid x:Name="LayoutRoot">
 		<DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" SelectedItem="{Binding CurrentTrack}" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Mp3Files}">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Artist" Binding="{Binding DisplayArtist}" Width="*" IsReadOnly="True"/>
-				<DataGridTextColumn Header="Album" Binding="{Binding DisplayAlbum}" Width="*" IsReadOnly="True"/>
+				<DataGridTextColumn Header="Artist" Binding="{Binding Artist}" Width="*" IsReadOnly="True"/>
+				<DataGridTextColumn Header="Album" Binding="{Binding Album}" Width="*" IsReadOnly="True"/>
 				<DataGridTextColumn Header="Track" Binding="{Binding TrackNumber}" Width="40" IsReadOnly="True"/>
-				<DataGridTextColumn Header="Title" Binding="{Binding DisplayTitle}" Width="*" IsReadOnly="True"/>
+				<DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" IsReadOnly="True"/>
 			</DataGrid.Columns>
 			<DataGrid.ContextMenu>
 				<ContextMenu Visibility="{Binding EnableContextMenu, Converter={StaticResource ResourceKey=boolToVisConverter}}">
@@ -23,6 +23,7 @@
 					<MenuItem Header="Play At End"  x:Name="playAtEndMenuItem" Command="{Binding PlayAtEndCommand}" CommandParameter="{Binding CurrentTrack}"/>
                     <Separator/>
                     <MenuItem Header="View File Location" x:Name="viewFileLocation" Click="viewFileLocation_Click"/>
+                    <MenuItem Header="Rescan Metadata" x:Name="rescanMetadata" Click="rescanMetadata_Click"/>
                 </ContextMenu>
 			</DataGrid.ContextMenu>
 		</DataGrid>

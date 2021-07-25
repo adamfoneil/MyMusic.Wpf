@@ -1,6 +1,5 @@
 ﻿using MyMusic.Wpf.Static;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace MyMusic.Wpf.Models
@@ -15,31 +14,19 @@ namespace MyMusic.Wpf.Models
         public int? TrackNumber { get; set; }
         public int? TrackCount { get; set; }
 
-        public string DisplayTitle =>
-            !string.IsNullOrWhiteSpace(Title) ? Title :
-            Path.GetFileName(Filename);
-
-        public string DisplayArtist =>
-            !string.IsNullOrWhiteSpace(Artist) ? Artist :
-            FileUtil.FolderName(Filename, 2);
-
-        public string DisplayAlbum =>
-            !string.IsNullOrWhiteSpace(Album) ? Album :
-            FileUtil.FolderName(Filename, 1);
-
         public bool IsSearchHit(string query) =>
             IsTargetedSearch(query, new[]
             {
-                ("artist:", DisplayArtist),
-                ("album:", DisplayAlbum),
-                ("title:", DisplayTitle)
+                ("artist:", Artist),
+                ("album:", Album),
+                ("title:", Title)
             }) ? true : SearchValues.ContainsAny(query);
 
         private IEnumerable<string> SearchValues => new[]
         {
             Filename,
-            DisplayArtist,
-            DisplayAlbum,
+            Artist,
+            Album,
             Title
         }.Where(val => !string.IsNullOrWhiteSpace(val)).Select(val => val.ToLower());
 

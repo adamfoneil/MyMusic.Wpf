@@ -15,7 +15,7 @@ namespace MyMusic.Wpf.Models
         private readonly string _fileName;
         private readonly int _maxEntries;
         private readonly MetadataCache _cache;
-        
+
         private Dictionary<string, DateTime> _history;
 
         public PlayHistory(string rootPath, int maxEntries, MetadataCache cache)
@@ -30,7 +30,7 @@ namespace MyMusic.Wpf.Models
         public void Add(string path)
         {
             _history[path] = DateTime.Now;
-            
+
             if (_history.Count > _maxEntries)
             {
                 var keepEntries = QueryInternal();
@@ -48,7 +48,7 @@ namespace MyMusic.Wpf.Models
         private IEnumerable<KeyValuePair<string, DateTime>> QueryInternal() => _history.OrderByDescending(kp => kp.Value).Take(_maxEntries);
 
         public async Task<IEnumerable<Mp3File>> QueryAsync()
-        {            
+        {
             var fileNames = QueryInternal().Select(kp => kp.Key);
             return await _cache.GetMp3FilesAsync(fileNames);
         }

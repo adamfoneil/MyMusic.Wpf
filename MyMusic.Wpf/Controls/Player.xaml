@@ -19,11 +19,11 @@
 			<local:PlayerControls Margin="10,5,10,10" MediaPlayer="{Binding MediaPlayer}" CurrentTrack="{Binding CurrentTrack}"
 														PlayNextCommand="{Binding PlayNextCommand}" PlayPreviousCommand="{Binding PlayPreviousCommand}" Grid.Row="1"/>
 			<StackPanel Orientation="Vertical" Grid.Row="0" Margin="10,5,10,5">
-				<TextBlock Text="{Binding CurrentTrack.DisplayTitle}" FontSize="28pt"/>
+				<TextBlock Text="{Binding CurrentTrack.Title}" FontSize="28pt"/>
 				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding CurrentTrack.DisplayArtist}" FontSize="16pt"/>
+					<TextBlock Text="{Binding CurrentTrack.Artist}" FontSize="16pt"/>
 					<TextBlock Text=" | " FontSize="16pt"/>
-					<TextBlock Text="{Binding CurrentTrack.DisplayAlbum}" FontSize="16pt"/>
+					<TextBlock Text="{Binding CurrentTrack.Album}" FontSize="16pt"/>
 				</StackPanel>
 			</StackPanel>
 		</Grid>

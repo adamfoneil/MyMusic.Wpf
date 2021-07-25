@@ -1,4 +1,5 @@
 ﻿using MyMusic.Wpf.Models;
+using MyMusic.Wpf.Services;
 using MyMusic.Wpf.Static;
 using System;
 using System.Windows;
@@ -12,9 +13,11 @@ namespace MyMusic.Wpf.Controls
     /// </summary>
     public partial class Playlist : UserControl
     {
+        private readonly MetadataCache _cache;
 
         public Playlist()
         {
+            //todo: set _cache = cache;
             InitializeComponent();
             LayoutRoot.DataContext = this;
         }
@@ -122,5 +125,10 @@ namespace MyMusic.Wpf.Controls
         }
 
         private void viewFileLocation_Click(object sender, RoutedEventArgs e) => FileUtil.RevealInExplorer((CurrentTrack as Mp3File).FullPath);
+
+        private void rescanMetadata_Click(object sender, RoutedEventArgs e)
+        {
+            // todo: _cache.Rescan((CurrentTrack as Mp3File).FullPath);
+        }
     }
 }
