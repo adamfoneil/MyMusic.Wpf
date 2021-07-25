@@ -37,8 +37,8 @@
 
                         <ComboBox Width="130px">
                             <ComboBoxItem>Alphabetical</ComboBoxItem>
-                            <ComboBoxItem>Favorite Artists</ComboBoxItem>
-                            <ComboBoxItem>Isolated Artists</ComboBoxItem>
+                            <ComboBoxItem>Most Represented</ComboBoxItem>
+                            <ComboBoxItem>Least Represented</ComboBoxItem>
                             <ComboBoxItem>Recently Added</ComboBoxItem>
                             <ComboBoxItem>Recently Played</ComboBoxItem>
                         </ComboBox>
