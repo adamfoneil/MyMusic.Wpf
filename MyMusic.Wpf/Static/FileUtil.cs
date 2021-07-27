@@ -24,5 +24,11 @@ namespace MyMusic.Wpf.Static
             psi.Arguments = $"/select,\"{fileName}\"";
             Process.Start(psi);
         }
+
+        public static void SaveJson<T>(string fileName, T data, JsonSerializerOptions options = null)
+        {
+            var json = JsonSerializer.Serialize(data, options);
+            File.WriteAllText(fileName, json);
+        }
     }
 }

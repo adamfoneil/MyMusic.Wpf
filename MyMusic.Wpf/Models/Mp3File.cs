@@ -17,8 +17,17 @@ namespace MyMusic.Wpf.Models
         public int? TrackCount { get; set; }
         public DateTime? DateAdded { get; set; }
 
+        /// <summary>
+        /// based on PlayHistory service, so we persist this elsewhere
+        /// </summary>
         [JsonIgnore]
         public DateTime? LastPlayed { get; set; }
+
+        /// <summary>
+        /// this gets serialized in a special way so that data doesn't get lost when cache is deleted
+        /// </summary>
+        [JsonIgnore]
+        public string[] Tags { get; set; }
 
         public bool IsSearchHit(string query) =>
             IsTargetedSearch(query, new[]

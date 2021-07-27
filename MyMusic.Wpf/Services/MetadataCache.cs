@@ -13,6 +13,7 @@ namespace MyMusic.Wpf.Services
     public class MetadataCache
     {
         private const string _folderCache = "meta.json";
+        private const string _tags = "tags.json";
         
         public MetadataCache(string rootPath)
         {
@@ -65,6 +66,19 @@ namespace MyMusic.Wpf.Services
             return results;
         }
 
+        public void SaveTags(string mp3File, string[] tags)
+        {
+            var tagFile = Path.Combine(Path.GetDirectoryName(mp3File), _tags);
+
+            var tagStore = File.Exists(tagFile) ? 
+                FileUtil.LoadJson<Dictionary<string, string[]>>(tagFile) : 
+                new Dictionary<string, string[]>();
+
+            tagStore[Path.GetFileName(mp3File)] = tags;
+
+            FileUtil.SaveJson(tagFile, tagStore);
+        }
+
         /// <summary>
         /// deletes the cache info for the folder containing the specified file,
         /// then raises an event to update the display
@@ -97,7 +111,9 @@ namespace MyMusic.Wpf.Services
 
             var hashInput = string.Join("\r\n", fileInfos.Select(fi => $"{fi.Name}:{fi.LastWriteTimeUtc}:{fi.CreationTimeUtc}:{fi.Length}"));
             var hash = HashHelper.Md5(hashInput);
-            
+
+            var tags = GetTags(path);
+
             if (File.Exists(cacheFile))
             {
                 var json = File.ReadAllText(cacheFile);
@@ -105,14 +121,41 @@ namespace MyMusic.Wpf.Services
                 if (!hash.Equals(mp3Folder.Hash))
                 {
                     UpdateMetadata(cacheFile, fileInfos, hash, mp3Folder);
-                }
+                }                
 
-                return mp3Folder.Files;
+                return WithTags(mp3Folder.Files, tags);
             }
 
             var folder = new Mp3Folder();
             UpdateMetadata(cacheFile, fileInfos, hash, folder);
-            return folder.Files;
+            return WithTags(folder.Files, tags);
+        }
+
+        private IEnumerable<Mp3File> WithTags(IEnumerable<Mp3File> files, ILookup<string, string> tags)
+        {
+            foreach (var file in files)
+            {
+                if (tags.Contains(file.Filename)) file.Tags = tags[file.Filename].ToArray();
+            }
+
+            return files;
+        }
+
+        private ILookup<string, string> GetTags(string path)
+        {
+            List<(string fileName, string tag)> results = new List<(string fileName, string tag)>();
+
+            var tagFile = Path.Combine(path, _tags);
+            if (File.Exists(tagFile))
+            {
+                var tagStore = FileUtil.LoadJson<Dictionary<string, string[]>>(tagFile);                               
+                foreach (var keyPair in tagStore)
+                {
+                    foreach (var tag in keyPair.Value) results.Add((keyPair.Key, tag));
+                }
+            }
+
+            return results.ToLookup(item => item.fileName, item => item.tag);
         }
 
         private void UpdateMetadata(string cacheFile, IEnumerable<FileInfo> files, string hash, Mp3Folder mp3Folder)
