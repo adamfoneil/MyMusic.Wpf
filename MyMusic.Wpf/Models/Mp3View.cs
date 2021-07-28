@@ -66,7 +66,7 @@ namespace MyMusic.Wpf.Models
             {
                 SetProperty(ref _loadTime, value);
             }
-        }        
+        }
 
         private string _searchText;
 

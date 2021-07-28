@@ -26,8 +26,9 @@ namespace MyMusic.Wpf
             var settings = Settings.Load();
             settings.RootPathChanged += Settings_RootPathChanged;
             services.AddSingleton(settings);
-            var cache = new MetadataCache(settings.RootPath);
-            services.AddSingleton(new PlayHistory(settings.RootPath, 100, cache));
+            var history = new PlayHistory(rootPath: settings.RootPath, maxEntries: 100);
+            var cache = new MetadataCache(settings.RootPath, history);
+            services.AddSingleton(history);
             services.AddSingleton(cache);
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainWindowViewModel>();
