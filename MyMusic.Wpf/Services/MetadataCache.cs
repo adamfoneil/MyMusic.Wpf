@@ -126,13 +126,13 @@ namespace MyMusic.Wpf.Services
                     UpdateMetadata(cacheFile, fileInfos, hash, mp3Folder);
                 }
 
-                SetTagsAndHistory(mp3Folder.Files, tags);                
+                SetTagsAndHistory(mp3Folder.Files, tags);
                 return mp3Folder.Files;
             }
 
             var folder = new Mp3Folder();
             UpdateMetadata(cacheFile, fileInfos, hash, folder);
-            SetTagsAndHistory(folder.Files, tags);            
+            SetTagsAndHistory(folder.Files, tags);
             return folder.Files;
         }
 
