@@ -10,7 +10,7 @@
 		<BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
 	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot">
-		<DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" SelectedItem="{Binding CurrentTrack}" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Mp3Files}">
+		<DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" CanUserAddRows="False" SelectedItem="{Binding CurrentTrack}" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Mp3Files}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Artist" Binding="{Binding Artist}" Width="*" IsReadOnly="True"/>
 				<DataGridTextColumn Header="Album" Binding="{Binding Album}" Width="*" IsReadOnly="True"/>

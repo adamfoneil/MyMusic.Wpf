@@ -12,7 +12,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
 						<Grid>
-							<TextBox x:Name="PART_TextBox" Text="{TemplateBinding Text}"/>
+							<TextBox x:Name="PART_TextBox" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Text="{TemplateBinding Text}"/>
 							<Grid Margin="5 0 2 0">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
