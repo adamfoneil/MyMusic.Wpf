@@ -40,7 +40,7 @@ namespace MyMusic.Wpf.Services
                 // assume some values based on the path if they can't be read from .mp3 directly
                 if (string.IsNullOrEmpty(result.Title)) result.Title = Path.GetFileName(fileName);
                 if (string.IsNullOrEmpty(result.Artist)) result.Artist = FileUtil.FolderName(fileName, 3);
-                if (string.IsNullOrEmpty(result.Album)) result.Album = FileUtil.FolderName(fileName, 2);                
+                if (string.IsNullOrEmpty(result.Album)) result.Album = FileUtil.FolderName(fileName, 2);
 
                 return result;
             }

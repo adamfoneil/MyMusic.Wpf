@@ -14,9 +14,12 @@ namespace MyMusic.Wpf.Services
     {
         private const string _folderCache = "meta.json";
         private const string _tags = "tags.json";
-        
-        public MetadataCache(string rootPath)
+
+        private readonly PlayHistory _history;
+
+        public MetadataCache(string rootPath, PlayHistory history)
         {
+            _history = history;
             RootPath = rootPath;
         }
 
@@ -70,8 +73,8 @@ namespace MyMusic.Wpf.Services
         {
             var tagFile = Path.Combine(Path.GetDirectoryName(mp3File), _tags);
 
-            var tagStore = File.Exists(tagFile) ? 
-                FileUtil.LoadJson<Dictionary<string, string[]>>(tagFile) : 
+            var tagStore = File.Exists(tagFile) ?
+                FileUtil.LoadJson<Dictionary<string, string[]>>(tagFile) :
                 new Dictionary<string, string[]>();
 
             tagStore[Path.GetFileName(mp3File)] = tags;
@@ -121,24 +124,25 @@ namespace MyMusic.Wpf.Services
                 if (!hash.Equals(mp3Folder.Hash))
                 {
                     UpdateMetadata(cacheFile, fileInfos, hash, mp3Folder);
-                }                
+                }
 
-                return WithTags(mp3Folder.Files, tags);
+                SetTagsAndHistory(mp3Folder.Files, tags);
+                return mp3Folder.Files;
             }
 
             var folder = new Mp3Folder();
             UpdateMetadata(cacheFile, fileInfos, hash, folder);
-            return WithTags(folder.Files, tags);
+            SetTagsAndHistory(folder.Files, tags);
+            return folder.Files;
         }
 
-        private IEnumerable<Mp3File> WithTags(IEnumerable<Mp3File> files, ILookup<string, string> tags)
+        private void SetTagsAndHistory(IEnumerable<Mp3File> files, ILookup<string, string> tags)
         {
             foreach (var file in files)
             {
                 if (tags.Contains(file.Filename)) file.Tags = tags[file.Filename].ToArray();
+                if (_history.Dictionary.ContainsKey(file.FullPath)) file.LastPlayed = _history.Dictionary[file.FullPath];
             }
-
-            return files;
         }
 
         private ILookup<string, string> GetTags(string path)
@@ -148,7 +152,7 @@ namespace MyMusic.Wpf.Services
             var tagFile = Path.Combine(path, _tags);
             if (File.Exists(tagFile))
             {
-                var tagStore = FileUtil.LoadJson<Dictionary<string, string[]>>(tagFile);                               
+                var tagStore = FileUtil.LoadJson<Dictionary<string, string[]>>(tagFile);
                 foreach (var keyPair in tagStore)
                 {
                     foreach (var tag in keyPair.Value) results.Add((keyPair.Key, tag));

@@ -1,4 +1,5 @@
 ﻿using MyMusic.Wpf.Models;
+using MyMusic.Wpf.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
