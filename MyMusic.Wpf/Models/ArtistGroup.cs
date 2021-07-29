@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MyMusic.Wpf.Models
 {
-    public class ArtistGroup 
+    public class ArtistGroup
     {
         public string ArtistName { get; set; }
 

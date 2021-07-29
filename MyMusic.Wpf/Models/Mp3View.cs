@@ -1,13 +1,10 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows.Data;
-using System.Windows.Input;
 
 namespace MyMusic.Wpf.Models
-{   
+{
     public enum Mp3ViewOption
     {
         /// <summary>
@@ -24,7 +21,7 @@ namespace MyMusic.Wpf.Models
         /// The album view
         /// </summary>
         AlbumView
-       
+
     }
 
     public enum SortOptions
@@ -112,7 +109,7 @@ namespace MyMusic.Wpf.Models
                 SetProperty(ref _searchText, value);
                 SearchFiles();
             }
-        }         
+        }
 
         public Mp3ViewOption CurrentView { get; set; }
 
@@ -144,7 +141,7 @@ namespace MyMusic.Wpf.Models
         public void GroupByAlbum()
         {
             CurrentView = Mp3ViewOption.AlbumView;
-            List<AlbumGroup> albumGroup = _allFiles.Where(mp3File =>  mp3File.IsSearchHit(SearchText))
+            List<AlbumGroup> albumGroup = _allFiles.Where(mp3File => mp3File.IsSearchHit(SearchText))
                 .GroupBy(i => (
                     i.Album,
                     i.Artist

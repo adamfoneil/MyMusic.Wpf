@@ -6,7 +6,6 @@ using MyMusic.Wpf.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf
@@ -31,7 +30,7 @@ namespace MyMusic.Wpf
             ShowAlbumCommand = new DelegateCommand(ShowAlbumView);
             ShowListCommand = new DelegateCommand(ShowListView);
             PlayCategoryCommand = new DelegateCommand<object>(PlayCategory);
-        }       
+        }
 
         public Mp3View Mp3View { get; set; }
 
@@ -129,7 +128,7 @@ namespace MyMusic.Wpf
             if (obj is ArtistGroup artistGrp)
             {
                 _playerViewModel.PlayCategory(artistGrp.Mp3Files);
-            }           
+            }
         }
     }
 }
