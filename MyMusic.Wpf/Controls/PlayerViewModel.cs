@@ -3,6 +3,7 @@ using MyMusic.Wpf.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -40,6 +41,22 @@ namespace MyMusic.Wpf.Controls
                 return currentTrackIndex > -1 && currentTrackIndex > 0;
             });
         }
+
+        /// <summary>
+        /// Gets or sets the play next command.
+        /// </summary>
+        /// <value>
+        /// The play next command.
+        /// </value>
+        public DelegateCommand PlayNextCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the play previous command.
+        /// </summary>
+        /// <value>
+        /// The play previous command.
+        /// </value>
+        public DelegateCommand PlayPreviousCommand { get; set; }
 
         private void PlayPreviousTrack()
         {
@@ -146,8 +163,13 @@ namespace MyMusic.Wpf.Controls
             }
         }
 
-        public DelegateCommand PlayNextCommand { get; set; }
-
-        public DelegateCommand PlayPreviousCommand { get; set; }
+        public void PlayCategory(IEnumerable<Mp3File> mp3Files)
+        {
+            _playlist.Clear();
+            foreach (var item in mp3Files)
+            {
+                _playlist.Add(item);
+            }
+        }
     }
 }

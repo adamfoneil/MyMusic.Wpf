@@ -6,10 +6,15 @@
         xmlns:local="clr-namespace:MyMusic.Wpf"
         xmlns:models="clr-namespace:MyMusic.Wpf.Models"
         xmlns:controls="clr-namespace:MyMusic.Wpf.Controls"
+				xmlns:converter="clr-namespace:MyMusic.Wpf.Converters"
         mc:Ignorable="d"
 				d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
 				x:Name="mainWindow"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="boolToVisibility"/>
+		<converter:InverseBoolToVisibilityConverter x:Key="invBoolToVisibility"/>
+	</Window.Resources>
 
 	<Grid x:Name="LayoutRoot">
 		<Grid.RowDefinitions>
@@ -23,53 +28,56 @@
 				<controls:Player DataContext="{Binding PlayerViewModel}" x:Name="player"/>
 			</TabItem>
 
-            <TabItem Header="All Files" Width="100" Height="30">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+			<TabItem Header="All Files" Width="100" Height="30">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
 
-                    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="5">
-                        <Button Width="80px">List</Button>
-                        <Button Width="80px">Artists</Button>
-                        <Button Width="80px">Albums</Button>
+					<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="5">
+						<Button Width="80px" Command="{Binding ShowListCommand}">List</Button>
+						<Button Width="80px" Command="{Binding ShowArtistCommand}">Artists</Button>
+						<Button Width="80px" Command="{Binding ShowAlbumCommand}">Albums</Button>
 
-                        <ComboBox Width="130px">
-                            <ComboBoxItem>Alphabetical</ComboBoxItem>
-                            <ComboBoxItem>Most Represented</ComboBoxItem>
-                            <ComboBoxItem>Least Represented</ComboBoxItem>
-                            <ComboBoxItem>Recently Added</ComboBoxItem>
-                            <ComboBoxItem>Recently Played</ComboBoxItem>
-                        </ComboBox>
-                        
-                        <controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text=""/>
-                    </DockPanel>
+						<ComboBox Width="130px">
+							<ComboBoxItem>Alphabetical</ComboBoxItem>
+							<ComboBoxItem>Most Represented</ComboBoxItem>
+							<ComboBoxItem>Least Represented</ComboBoxItem>
+							<ComboBoxItem>Recently Added</ComboBoxItem>
+							<ComboBoxItem>Recently Played</ComboBoxItem>
+						</ComboBox>
 
-                    <controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
+						<controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<TextBlock Text=""/>
+					</DockPanel>
+
+					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True" Visibility="{Binding ShowTileView, Converter={StaticResource invBoolToVisibility}}"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
+					<controls:TileViewList Visibility="{Binding ShowTileView, Converter={StaticResource boolToVisibility}}" 
+																 PlayCommand="{Binding PlayCategoryCommand}"
+																 Grid.Row="1" Mp3Files="{Binding  Mp3View.CategoryCollection}"/>
 
-                </Grid>
-            </TabItem>
-        </TabControl>
+				</Grid>
+			</TabItem>
+		</TabControl>
 
-        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
-            <StatusBarItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Mp3View.AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
-                    <TextBlock Margin="3,0,0,0">files</TextBlock>
-                    <TextBlock Text="|" Margin="4,0,4,0"/>
-                    <TextBlock>loaded in</TextBlock>
+		<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
+			<StatusBarItem>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Mp3View.AllFiles.Count, Mode=OneWay, StringFormat=n0}"/>
+					<TextBlock Margin="3,0,0,0">files</TextBlock>
+					<TextBlock Text="|" Margin="4,0,4,0"/>
+					<TextBlock>loaded in</TextBlock>
 					<TextBlock Margin="3,0,0,0" Text="{Binding Mp3View.LoadTime, Mode=OneWay}"/>
-                </StackPanel>
-            </StatusBarItem>
-            <StatusBarItem DockPanel.Dock="Right">
+				</StackPanel>
+			</StatusBarItem>
+			<StatusBarItem DockPanel.Dock="Right">
 				<Hyperlink Command="{Binding SettingsCommand}" CommandParameter="{Binding ElementName=mainWindow}">Settings...</Hyperlink>
-            </StatusBarItem>
-            <TextBlock Text=""/>
-        </DockPanel>
-    </Grid>
+			</StatusBarItem>
+			<TextBlock Text=""/>
+		</DockPanel>
+	</Grid>
 </Window>

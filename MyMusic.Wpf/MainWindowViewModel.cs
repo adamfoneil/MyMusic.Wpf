@@ -6,6 +6,7 @@ using MyMusic.Wpf.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MyMusic.Wpf
@@ -26,7 +27,11 @@ namespace MyMusic.Wpf
             PlayNextCommand = new DelegateCommand<Mp3File>(mp3 => PlayNext(mp3));
             PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3)); ;
             SettingsCommand = new DelegateCommand<Window>(OpenSettingsView);
-        }
+            ShowArtistCommand = new DelegateCommand(ShowArtistView);
+            ShowAlbumCommand = new DelegateCommand(ShowAlbumView);
+            ShowListCommand = new DelegateCommand(ShowListView);
+            PlayCategoryCommand = new DelegateCommand<object>(PlayCategory);
+        }       
 
         public Mp3View Mp3View { get; set; }
 
@@ -38,6 +43,14 @@ namespace MyMusic.Wpf
 
         public ICommand SettingsCommand { get; set; }
 
+        public ICommand ShowArtistCommand { get; set; }
+
+        public ICommand ShowAlbumCommand { get; set; }
+
+        public ICommand ShowListCommand { get; set; }
+
+        public ICommand PlayCategoryCommand { get; set; }
+
         public PlayerViewModel PlayerViewModel
         {
             get => _playerViewModel;
@@ -46,6 +59,18 @@ namespace MyMusic.Wpf
                 SetProperty(ref _playerViewModel, value);
             }
         }
+
+        private bool _showTileView;
+
+        public bool ShowTileView
+        {
+            get { return _showTileView; }
+            set
+            {
+                SetProperty(ref _showTileView, value);
+            }
+        }
+
 
         private void OpenSettingsView(Window obj)
         {
@@ -79,6 +104,32 @@ namespace MyMusic.Wpf
         {
             Mp3View.AllFiles = await _cache.GetMp3FilesAsync(rebuild: true);
             Mp3View.LoadTime = _cache.ScanTime;
+        }
+
+        private void ShowListView()
+        {
+            ShowTileView = false;
+            Mp3View?.GenerateListView();
+        }
+
+        private void ShowAlbumView()
+        {
+            ShowTileView = true;
+            Mp3View?.GroupByAlbum();
+        }
+
+        private void ShowArtistView()
+        {
+            ShowTileView = true;
+            Mp3View?.GroupByArtist();
+        }
+
+        private void PlayCategory(object obj)
+        {
+            if (obj is ArtistGroup artistGrp)
+            {
+                _playerViewModel.PlayCategory(artistGrp.Mp3Files);
+            }           
         }
     }
 }
