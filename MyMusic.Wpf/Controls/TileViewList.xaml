@@ -15,7 +15,7 @@
 					<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
 				</Border.Effect>
 				<Grid>
-					<Grid Height="200px" Width="120px">
+					<Grid Height="150px" Width="130px">
 						<Grid.RowDefinitions>
 							<RowDefinition/>
 							<RowDefinition Height="Auto"/>
@@ -50,7 +50,7 @@
 					<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
 				</Border.Effect>
 				<Grid>
-					<Grid Height="200px" Width="120px">
+					<Grid Height="150px" Width="130px">
 						<Grid.RowDefinitions>
 							<RowDefinition/>
 							<RowDefinition Height="Auto"/>
