@@ -58,7 +58,7 @@
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
 					<controls:TileViewList Visibility="{Binding ShowTileView, Converter={StaticResource boolToVisibility}}" 
 																 PlayCommand="{Binding PlayCategoryCommand}"
-																 Grid.Row="1" Mp3Files="{Binding  Mp3View.FilesCollection}"/>
+																 Grid.Row="1" Mp3Files="{Binding  Mp3View.CategoryCollection}"/>
 
 				</Grid>
 			</TabItem>

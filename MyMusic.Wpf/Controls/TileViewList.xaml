@@ -4,82 +4,96 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyMusic.Wpf.Controls"
+						 xmlns:converter="clr-namespace:MyMusic.Wpf.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-	<Grid x:Name="LayoutRoot">
-		<Grid.Resources>
-			<DataTemplate x:Key="artistTemplate">
-				<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
-					<Border.Effect>
-						<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
-					</Border.Effect>
-					<Grid>
-						<StackPanel Height="200px" Width="120px">
-							<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
-								<Image />
-							</Grid>
-							<TextBlock Text="{Binding Path=ArtistName}" FontSize="13"  FontWeight="Bold" TextWrapping="WrapWithOverflow"/>
-						</StackPanel>
-						<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
-							<Button.Style>
-								<Style TargetType="{x:Type Button}">
-									<Setter Property="Visibility" Value="Hidden" />
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListViewItem}},Path=IsMouseOver}" Value="True">
-											<Setter Property="Visibility" Value="Visible" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</Button.Style>
-							<Viewbox Height="20" Width="20" >
-								<Image Source="/Icons/play.png" />
-							</Viewbox>
-						</Button>
+	<UserControl.Resources>
+		<converter:WrapPanelSizeConverter x:Key="wrapPanelSizeConverter"/>
+		<DataTemplate x:Key="artistTemplate">
+			<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
+				<Border.Effect>
+					<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
+				</Border.Effect>
+				<Grid>
+					<Grid Height="200px" Width="120px">
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
+							<Image />
+						</Grid>
+						<TextBlock Grid.Row="1" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="13" ToolTip="{Binding ArtistName}"  FontWeight="Bold" TextWrapping="Wrap"/>
 					</Grid>
-				</Border>
-			</DataTemplate>
+					<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
+						<Button.Style>
+							<Style TargetType="{x:Type Button}">
+								<Setter Property="Visibility" Value="Hidden" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+										<Setter Property="Visibility" Value="Visible" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Button.Style>
+						<Viewbox Height="20" Width="20" >
+							<Image Source="/Icons/play.png" />
+						</Viewbox>
+					</Button>
+				</Grid>
+			</Border>
+		</DataTemplate>
 
-			<DataTemplate x:Key="albumTemplate">
-				<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
-					<Border.Effect>
-						<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
-					</Border.Effect>
-					<Grid>
-						<StackPanel Height="200px" Width="120px">
-							<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
-								<Image />
-							</Grid>
-							<TextBlock Text="{Binding Path=AlbumName}" FontSize="13" FontWeight="Bold" TextWrapping="WrapWithOverflow"/>
-							<TextBlock Text="{Binding Path=ArtistName}" FontSize="9"   TextWrapping="WrapWithOverflow"/>
-						</StackPanel>
-						<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
-							<Button.Style>
-								<Style TargetType="{x:Type Button}">
-									<Setter Property="Visibility" Value="Hidden" />
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListViewItem}},Path=IsMouseOver}" Value="True">
-											<Setter Property="Visibility" Value="Visible" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</Button.Style>
-							<Viewbox Height="20" Width="20" >
-								<Image Source="/Icons/play.png" />
-							</Viewbox>
-						</Button>
+		<DataTemplate x:Key="albumTemplate">
+			<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
+				<Border.Effect>
+					<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
+				</Border.Effect>
+				<Grid>
+					<Grid Height="200px" Width="120px">
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
+							<Image />
+						</Grid>
+						<TextBlock Grid.Row="1" Text="{Binding Path=AlbumName}" FontSize="13" FontWeight="Bold" TextWrapping="WrapWithOverflow" ToolTip="{Binding AlbumName}"/>
+						<TextBlock Grid.Row="2" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="9" ToolTip="{Binding Path=ArtistName}" />
 					</Grid>
-				</Border>
-			</DataTemplate>
-			<local:TileViewTemplateSelector x:Key="tileTemplate" 
+					<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
+						<Button.Style>
+							<Style TargetType="{x:Type Button}">
+								<Setter Property="Visibility" Value="Hidden" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+										<Setter Property="Visibility" Value="Visible" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Button.Style>
+						<Viewbox Height="20" Width="20" >
+							<Image Source="/Icons/play.png" />
+						</Viewbox>
+					</Button>
+				</Grid>
+			</Border>
+		</DataTemplate>
+		<local:TileViewTemplateSelector x:Key="tileTemplate" 
 																			AlbumTemplate="{StaticResource albumTemplate}" 
 																			ArtistTemplate="{StaticResource artistTemplate}"/>
-		</Grid.Resources>
-		<ListView ItemsSource="{Binding Mp3Files}" ItemTemplateSelector="{StaticResource tileTemplate}">
-			<ListView.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel/>
-				</ItemsPanelTemplate>
-			</ListView.ItemsPanel>
-		</ListView>
+	</UserControl.Resources>
+	<Grid x:Name="LayoutRoot">
+
+		<ListBox Margin="10" BorderThickness="0" ItemsSource="{Binding Mp3Files}" ItemTemplateSelector="{StaticResource tileTemplate}">
+			<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" 
+										 Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListBox}}">
+						</WrapPanel>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+			</ListBox>
 	</Grid>
 </UserControl>

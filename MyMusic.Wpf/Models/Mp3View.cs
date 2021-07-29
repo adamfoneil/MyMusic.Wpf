@@ -58,6 +58,7 @@ namespace MyMusic.Wpf.Models
         private IEnumerable<Mp3File> _allFiles;
         private TimeSpan _loadTime;
         private IEnumerable<object> _filesCollection;
+        private IEnumerable<object> _categoryCollection;
 
         public IEnumerable<Mp3File> AllFiles
         {
@@ -76,7 +77,18 @@ namespace MyMusic.Wpf.Models
             {
                 SetProperty(ref _filesCollection, value);
             }
-        }        
+        }
+
+        // This collection is used to bind to tile view. If we bind the FilesCollection to TileView, Playlist control generates binding error.
+        public IEnumerable<object> CategoryCollection
+        {
+            get { return _categoryCollection; }
+            set
+            {
+                SetProperty(ref _categoryCollection, value);
+            }
+        }
+
 
         public TimeSpan LoadTime
         {
@@ -126,7 +138,7 @@ namespace MyMusic.Wpf.Models
             CurrentView = Mp3ViewOption.ArtistView;
             List<ArtistGroup> artistGroup = _allFiles.Where(mp3File => mp3File.IsSearchHit(SearchText))
                 .GroupBy(i => i.Artist).Select(i => new ArtistGroup { ArtistName = i.Key, Mp3Files = i.ToList() }).ToList();
-            FilesCollection = artistGroup;
+            CategoryCollection = artistGroup;
         }
 
         public void GroupByAlbum()
@@ -142,7 +154,7 @@ namespace MyMusic.Wpf.Models
                     ArtistName = i.Key.Artist,
                     Mp3Files = i.ToList()
                 }).ToList();
-            FilesCollection = albumGroup;
+            CategoryCollection = albumGroup;
         }
 
         public void GenerateListView()
