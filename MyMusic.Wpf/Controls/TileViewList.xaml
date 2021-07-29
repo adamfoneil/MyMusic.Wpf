@@ -90,7 +90,7 @@
 			<ListBox.ItemsPanel>
 					<ItemsPanelTemplate>
 						<WrapPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal" 
-										 Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListBox}}">
+										 Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListBox}, Converter={StaticResource wrapPanelSizeConverter}}">
 						</WrapPanel>
 					</ItemsPanelTemplate>
 				</ListBox.ItemsPanel>

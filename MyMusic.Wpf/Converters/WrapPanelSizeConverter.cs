@@ -8,6 +8,10 @@ using System.Windows.Data;
 
 namespace MyMusic.Wpf.Converters
 {
+    /// <summary>
+    /// This converter class is used to adjust the wrap panel width in TileViewList.
+    /// </summary>
+    /// <seealso cref="System.Windows.Data.IValueConverter" />
     public class WrapPanelSizeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

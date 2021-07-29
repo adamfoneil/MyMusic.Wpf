@@ -79,7 +79,7 @@ namespace MyMusic.Wpf.Models
             }
         }
 
-        // This collection is used to bind to tile view. If we bind the FilesCollection to TileView, Playlist control generates binding error.
+        // This collection is used to bind to tile view. If we bind the FilesCollection to TileView binding errors throwing from Playlist control datagrid.
         public IEnumerable<object> CategoryCollection
         {
             get { return _categoryCollection; }
