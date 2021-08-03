@@ -23,7 +23,7 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<controls:TabControlEx Grid.Row="1" SearchText="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+		<controls:TabControlEx Grid.Row="1" EnableSearchBox="{Binding Mp3View.IsLoaded, UpdateSourceTrigger=PropertyChanged}" SearchText="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 			<TabItem Header="Now Playing" Width="100" Height="30">
 				<controls:Player DataContext="{Binding PlayerViewModel}" x:Name="player"/>
 			</TabItem>

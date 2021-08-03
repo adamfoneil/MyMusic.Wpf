@@ -53,13 +53,28 @@ namespace MyMusic.Wpf.Controls
             }));
 
 
+
+        public bool EnableSearchBox
+        {
+            get { return (bool)GetValue(EnableSearchBoxProperty); }
+            set { SetValue(EnableSearchBoxProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for EnableSearchBox.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnableSearchBoxProperty =
+            DependencyProperty.Register("EnableSearchBox", typeof(bool), typeof(TabControlEx), new PropertyMetadata(true));
+
+
+
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             watermarkTextbox = GetTemplateChild("Part_SearchBox") as WatermarkTextbox;
             if(watermarkTextbox != null)
             {
-                watermarkTextbox.SetBinding(WatermarkTextbox.TextProperty, new Binding("SearchText") { Source = this, Mode = BindingMode.TwoWay });                
+                watermarkTextbox.SetBinding(WatermarkTextbox.TextProperty, new Binding("SearchText") { Source = this, Mode = BindingMode.TwoWay });
+                watermarkTextbox.SetBinding(WatermarkTextbox.IsEnabledProperty, new Binding("EnableSearchBox") { Source = this, Mode = BindingMode.TwoWay });
             }            
         }
     }
