@@ -87,7 +87,7 @@ namespace MyMusic.Wpf.Controls
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             base.OnGotFocus(e);
-            _textBox.Focus();
+            _textBox?.Focus();
         }
     }
 }
