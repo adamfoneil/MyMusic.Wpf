@@ -83,5 +83,11 @@ namespace MyMusic.Wpf.Controls
             _clearButton.Visibility = Visibility.Collapsed;
             _watermarkTextBlock.Visibility = Visibility.Visible;
         }
+
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            base.OnGotFocus(e);
+            _textBox?.Focus();
+        }
     }
 }

@@ -54,8 +54,10 @@ namespace MyMusic.Wpf.Models
     {
         private IEnumerable<Mp3File> _allFiles;
         private TimeSpan _loadTime;
+        private bool _isLoaded;
         private IEnumerable<object> _filesCollection;
         private IEnumerable<object> _categoryCollection;
+        private string _searchText = string.Empty;
 
         public IEnumerable<Mp3File> AllFiles
         {
@@ -93,10 +95,27 @@ namespace MyMusic.Wpf.Models
             set
             {
                 SetProperty(ref _loadTime, value);
+                if(value != TimeSpan.Zero)
+                {
+                    IsLoaded = true;
+                }
             }
         }
 
-        private string _searchText = string.Empty;
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is loaded.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is loaded; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsLoaded
+        {
+            get { return _isLoaded; }
+            set
+            {
+                SetProperty(ref _isLoaded, value);
+            }
+        }        
 
         /// <summary>
         /// Gets or sets the search text.
