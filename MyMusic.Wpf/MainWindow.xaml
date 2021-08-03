@@ -23,7 +23,7 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<TabControl Grid.Row="1">
+		<controls:TabControlEx Grid.Row="1" SearchText="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 			<TabItem Header="Now Playing" Width="100" Height="30">
 				<controls:Player DataContext="{Binding PlayerViewModel}" x:Name="player"/>
 			</TabItem>
@@ -47,8 +47,6 @@
 							<ComboBoxItem>Recently Added</ComboBoxItem>
 							<ComboBoxItem>Recently Played</ComboBoxItem>
 						</ComboBox>
-
-						<controls:WatermarkTextbox DockPanel.Dock="Right" Width="150" WatermarkText="Search" Text="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 						<TextBlock Text=""/>
 					</DockPanel>
 
@@ -62,7 +60,7 @@
 
 				</Grid>
 			</TabItem>
-		</TabControl>
+		</controls:TabControlEx>
 
 		<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Margin="4">
 			<StatusBarItem>
