@@ -23,6 +23,11 @@ namespace MyMusic.Wpf.Services
             RootPath = rootPath;
         }
 
+        /// <summary>
+        /// Occurs when the meta data cache is refreshed.
+        /// </summary>
+        public event Action Refreshed;
+
         public string RootPath { get; private set; }
         public TimeSpan ScanTime { get; private set; }
 
@@ -96,7 +101,7 @@ namespace MyMusic.Wpf.Services
                 File.Delete(cacheFile);
                 var fileInfos = Directory.GetFiles(path, "*.mp3", SearchOption.TopDirectoryOnly).Select(fileName => new FileInfo(fileName));
                 GetCachedMetadata(path, fileInfos);
-                // todo: raise an event to refresh display
+                Refreshed?.Invoke();
             }
         }
 

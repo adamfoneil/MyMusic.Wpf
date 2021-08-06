@@ -13,11 +13,9 @@ namespace MyMusic.Wpf.Controls
     /// </summary>
     public partial class Playlist : UserControl
     {
-        private readonly MetadataCache _cache;
 
         public Playlist()
         {
-            //todo: set _cache = cache;
             InitializeComponent();
             LayoutRoot.DataContext = this;
         }
@@ -116,6 +114,20 @@ namespace MyMusic.Wpf.Controls
             DependencyProperty.Register("PlayAtEndCommand", typeof(ICommand), typeof(Playlist));
 
 
+
+        public ICommand RescanCommand
+        {
+            get { return (ICommand)GetValue(RescanCommandProperty); }
+            set { SetValue(RescanCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RescanCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RescanCommandProperty =
+            DependencyProperty.Register("RescanCommand", typeof(ICommand), typeof(Playlist));
+
+
+
+
         // When the user double clicks on the data grid, this will further triggers the Mp3FileSelected event to notify its subscriber.
         private void dgFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -125,10 +137,5 @@ namespace MyMusic.Wpf.Controls
         }
 
         private void viewFileLocation_Click(object sender, RoutedEventArgs e) => FileUtil.RevealInExplorer((CurrentTrack as Mp3File).FullPath);
-
-        private void rescanMetadata_Click(object sender, RoutedEventArgs e)
-        {
-            // todo: _cache.Rescan((CurrentTrack as Mp3File).FullPath);
-        }
     }
 }

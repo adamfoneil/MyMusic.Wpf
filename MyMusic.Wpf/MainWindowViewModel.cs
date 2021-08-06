@@ -18,18 +18,28 @@ namespace MyMusic.Wpf
 
         public MainWindowViewModel(MetadataCache cache, PlayerViewModel playerViewModel, Mp3View mp3View, SettingsViewModel settingsViewModel)
         {
-            _cache = cache; ;
+            _cache = cache;
+            _cache.Refreshed += MetadataCache_Refreshed;
             _playerViewModel = playerViewModel;
             _settingsViewModel = settingsViewModel;
             Mp3View = mp3View;
             RebuildCommand = new DelegateCommand(Rebuild);
             PlayNextCommand = new DelegateCommand<Mp3File>(mp3 => PlayNext(mp3));
-            PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3)); ;
+            PlayAtEndCommand = new DelegateCommand<Mp3File>(mp3 => PlayAtEnd(mp3));
             SettingsCommand = new DelegateCommand<Window>(OpenSettingsView);
             ShowArtistCommand = new DelegateCommand(ShowArtistView);
             ShowAlbumCommand = new DelegateCommand(ShowAlbumView);
             ShowListCommand = new DelegateCommand(ShowListView);
             PlayCategoryCommand = new DelegateCommand<object>(PlayCategory);
+            RescanCommand = new DelegateCommand<Mp3File>((currenTrack) => 
+            {
+                _cache.Rescan(currenTrack.FullPath);
+            });
+        }
+
+        private void MetadataCache_Refreshed()
+        {
+            Rebuild();
         }
 
         public Mp3View Mp3View { get; set; }
@@ -39,6 +49,8 @@ namespace MyMusic.Wpf
         public ICommand PlayAtEndCommand { get; set; }
 
         public ICommand PlayNextCommand { get; set; }
+
+        public ICommand RescanCommand { get; set; }
 
         public ICommand SettingsCommand { get; set; }
 

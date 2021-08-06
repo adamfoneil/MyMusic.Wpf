@@ -23,7 +23,7 @@
 					<MenuItem Header="Play At End"  x:Name="playAtEndMenuItem" Command="{Binding PlayAtEndCommand}" CommandParameter="{Binding CurrentTrack}"/>
                     <Separator/>
                     <MenuItem Header="View File Location" x:Name="viewFileLocation" Click="viewFileLocation_Click"/>
-                    <MenuItem Header="Rescan Metadata" x:Name="rescanMetadata" Click="rescanMetadata_Click"/>
+					<MenuItem Header="Rescan Metadata" x:Name="rescanMetadata" Command="{Binding RescanCommand}" CommandParameter="{Binding CurrentTrack}"/>
                 </ContextMenu>
 			</DataGrid.ContextMenu>
 		</DataGrid>

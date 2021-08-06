@@ -50,6 +50,7 @@
 					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True" Visibility="{Binding ShowTileView, Converter={StaticResource invBoolToVisibility}}"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
+														 RescanCommand="{Binding RescanCommand}"
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
 					<controls:TileViewList Visibility="{Binding ShowTileView, Converter={StaticResource boolToVisibility}}" 
 																 PlayCommand="{Binding PlayCategoryCommand}"
