@@ -7,6 +7,7 @@
         xmlns:models="clr-namespace:MyMusic.Wpf.Models"
         xmlns:controls="clr-namespace:MyMusic.Wpf.Controls"
 				xmlns:converter="clr-namespace:MyMusic.Wpf.Converters"
+				xmlns:helpers="clr-namespace:MyMusic.Wpf.Helpers"
         mc:Ignorable="d"
 				d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
 				x:Name="mainWindow"
@@ -40,12 +41,8 @@
 						<Button Width="80px" Command="{Binding ShowArtistCommand}">Artists</Button>
 						<Button Width="80px" Command="{Binding ShowAlbumCommand}">Albums</Button>
 
-						<ComboBox Width="130px">
-							<ComboBoxItem>Alphabetical</ComboBoxItem>
-							<ComboBoxItem>Most Represented</ComboBoxItem>
-							<ComboBoxItem>Least Represented</ComboBoxItem>
-							<ComboBoxItem>Recently Added</ComboBoxItem>
-							<ComboBoxItem>Recently Played</ComboBoxItem>
+						<ComboBox Width="130px" ItemsSource="{Binding Source={helpers:EnumBindingSource EnumType=models:SortOptions}}"
+											SelectedItem="{Binding Path=Mp3View.CurrentSortOption}">
 						</ComboBox>
 						<TextBlock Text=""/>
 					</DockPanel>

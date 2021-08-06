@@ -1,6 +1,9 @@
-﻿using Prism.Mvvm;
+﻿using MyMusic.Wpf.Helpers;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace MyMusic.Wpf.Models
@@ -24,29 +27,39 @@ namespace MyMusic.Wpf.Models
 
     }
 
+    [TypeConverter(typeof(EnumDisplayTypeConverter))]
     public enum SortOptions
     {
         /// <summary>
         /// order by Artist asc, Album asc, Track asc
         /// </summary>
+        [Display(Name = "Alphabetical")]
         Alphabetical,
+
         /// <summary>
         /// which artists are most represented in my collection? Beck, Sam Phillips, The Church
         /// order by Count(Artist) desc, Album asc, Track asc
         /// </summary>
+        [Display(Name = "Most Represented")]
         MostRepresented,
+
         /// <summary>
         /// which artists are least represented in my collection? these are one-offs like Alanah Myles, John Prine, Tori Amos
         /// order by Count(Artist) asc, Artist asc, Album asc, Track asc
         /// </summary>
+        [Display(Name = "Least Represented")]
         LeastRepresented,
+
         /// <summary>        
         /// order by DateAdded desc, Album asc, Track asc
         /// </summary>
+        [Display(Name = "Recently Added")]
         RecentlyAdded,
+
         /// <summary>
         /// order by LastPlayed desc, Album asc, Track asc
         /// </summary>
+        [Display(Name = "Recently Played")]
         RecentlyPlayed
     }
 
@@ -55,9 +68,10 @@ namespace MyMusic.Wpf.Models
         private IEnumerable<Mp3File> _allFiles;
         private TimeSpan _loadTime;
         private bool _isLoaded;
-        private IEnumerable<object> _filesCollection;
+        private IEnumerable<Mp3File> _filesCollection;
         private IEnumerable<object> _categoryCollection;
         private string _searchText = string.Empty;
+        private SortOptions _currentSortOption;
 
         public IEnumerable<Mp3File> AllFiles
         {
@@ -65,11 +79,11 @@ namespace MyMusic.Wpf.Models
             set
             {
                 SetProperty(ref _allFiles, value);
-                FilesCollection = _allFiles;
+                SearchFiles();
             }
         }
 
-        public IEnumerable<object> FilesCollection
+        public IEnumerable<Mp3File> FilesCollection
         {
             get => _filesCollection;
             set
@@ -130,11 +144,25 @@ namespace MyMusic.Wpf.Models
             }
         }
 
-        public Mp3ViewOption CurrentView { get; set; }
+        public Mp3ViewOption CurrentView { get; set; }       
+
+        /// <summary>
+        /// Gets or sets the current sort option.
+        /// </summary>
+        public SortOptions CurrentSortOption
+        {
+            get { return _currentSortOption; }
+            set
+            {
+                SetProperty(ref _currentSortOption, value);
+                SearchFiles();
+            }
+        }
+
 
         private void SearchFiles()
         {
-            // Applyting filter based on search text.
+            // Chooses the view based on view option.
             switch (CurrentView)
             {
                 case Mp3ViewOption.ListView:
@@ -152,7 +180,8 @@ namespace MyMusic.Wpf.Models
         public void GroupByArtist()
         {
             CurrentView = Mp3ViewOption.ArtistView;
-            List<ArtistGroup> artistGroup = _allFiles.Where(mp3File => mp3File.IsSearchHit(SearchText))
+            var sortedFiles = SortRules[_currentSortOption].Invoke(_allFiles).AsEnumerable();
+            List<ArtistGroup> artistGroup = sortedFiles.Where(mp3File => mp3File.IsSearchHit(SearchText))
                 .GroupBy(i => i.Artist).Select(i => new ArtistGroup { ArtistName = i.Key, Mp3Files = i.ToList() }).ToList();
             CategoryCollection = artistGroup;
         }
@@ -160,7 +189,8 @@ namespace MyMusic.Wpf.Models
         public void GroupByAlbum()
         {
             CurrentView = Mp3ViewOption.AlbumView;
-            List<AlbumGroup> albumGroup = _allFiles.Where(mp3File => mp3File.IsSearchHit(SearchText))
+            var sortedFiles = SortRules[_currentSortOption].Invoke(_allFiles).AsEnumerable();
+            List<AlbumGroup> albumGroup = sortedFiles.Where(mp3File => mp3File.IsSearchHit(SearchText))
                 .GroupBy(i => (
                     i.Album,
                     i.Artist
@@ -176,7 +206,8 @@ namespace MyMusic.Wpf.Models
         public void GenerateListView()
         {
             CurrentView = Mp3ViewOption.ListView;
-            FilesCollection = _allFiles.Where(mp3File => mp3File.IsSearchHit(SearchText));
+            var sortedFiles = SortRules[_currentSortOption].Invoke(_allFiles).AsEnumerable();
+            FilesCollection = sortedFiles.Where(mp3File => mp3File.IsSearchHit(SearchText));
         }
 
         public static Dictionary<SortOptions, Func<IEnumerable<Mp3File>, IOrderedEnumerable<Mp3File>>> SortRules => new Dictionary<SortOptions, Func<IEnumerable<Mp3File>, IOrderedEnumerable<Mp3File>>>()
