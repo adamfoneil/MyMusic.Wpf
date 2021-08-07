@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Windows.Media;
 
 namespace MyMusic.Wpf.Controls
@@ -72,10 +73,12 @@ namespace MyMusic.Wpf.Controls
 
         private void PlaylistChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_playlist.Count == 1)
+            if (CurrentTrack == null)
             {
-                CurrentTrack = _playlist[0];
+                var track = e.NewItems.OfType<Mp3File>().First();
+                CurrentTrack = track;
             }
+
             PlayNextCommand.RaiseCanExecuteChanged();
             PlayPreviousCommand.RaiseCanExecuteChanged();
         }
@@ -87,6 +90,7 @@ namespace MyMusic.Wpf.Controls
             if (_track > _playlist.Count - 1)
             {
                 _player.Stop();
+                CurrentTrack = null;
                 return;
             }
 
