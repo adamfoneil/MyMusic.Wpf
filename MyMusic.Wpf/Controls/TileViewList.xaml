@@ -25,9 +25,9 @@
 						</Grid>
 						<TextBlock Grid.Row="1" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="13" ToolTip="{Binding ArtistName}"  FontWeight="Bold" TextWrapping="Wrap"/>
 					</Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <StackPanel.Style>
-                            <Style TargetType="{x:Type StackPanel}">
+                    <Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
                                 <Setter Property="Visibility" Value="Hidden" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
@@ -35,17 +35,12 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </StackPanel.Style>
-                        <Button Width="40" Height="40" Margin="5 0" x:Name="searchButton">
-                        </Button>
-                        <Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
-                            <Viewbox Height="20" Width="20" >
-                                <Image Source="/Icons/play.png" />
-                            </Viewbox>
-                        </Button>
-                    </StackPanel>
-					
-				</Grid>
+                        </Button.Style>
+                        <Viewbox Height="20" Width="20" >
+                            <Image Source="/Icons/play.png" />
+                        </Viewbox>
+                    </Button>
+                </Grid>
 			</Border>
 		</DataTemplate>
 
