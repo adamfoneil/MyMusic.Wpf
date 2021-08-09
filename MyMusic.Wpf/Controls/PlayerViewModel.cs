@@ -26,6 +26,7 @@ namespace MyMusic.Wpf.Controls
 
             _player = new MediaPlayer();
             _player.MediaEnded += player_MediaEnded;
+            _player.MediaFailed += player_MediaFailed;
 
             _playlist = new ObservableCollection<Mp3File>();
             _playlist.CollectionChanged += PlaylistChanged;
@@ -41,6 +42,12 @@ namespace MyMusic.Wpf.Controls
                 int currentTrackIndex = _playlist.IndexOf(CurrentTrack);
                 return currentTrackIndex > -1 && currentTrackIndex > 0;
             });
+        }
+
+        private void player_MediaFailed(object sender, ExceptionEventArgs e)
+        {
+            // todo: file not found, usually
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -139,20 +146,22 @@ namespace MyMusic.Wpf.Controls
             {
                 if (value != _file)
                 {
-                    if (File.Exists(value?.FullPath))
+                    try
                     {
                         _track = _playlist.IndexOf(value);
                         _player.Open(new Uri($"file://{value.FullPath}"));
                         _player.Play();
                         _history.Add(value.FullPath);
+
+                        PlayNextCommand.RaiseCanExecuteChanged();
+                        PlayPreviousCommand.RaiseCanExecuteChanged();
+                        SetProperty(ref _file, value);
                     }
-                    else
+                    catch 
                     {
+                        // todo: indicate error somehow, like with an error event that is handled by window?
                         _player.Stop();
                     }
-                    PlayNextCommand.RaiseCanExecuteChanged();
-                    PlayPreviousCommand.RaiseCanExecuteChanged();
-                    SetProperty(ref _file, value);
                 }
             }
         }
