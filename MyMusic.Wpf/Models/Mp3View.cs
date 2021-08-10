@@ -72,6 +72,7 @@ namespace MyMusic.Wpf.Models
         private IEnumerable<object> _categoryCollection;
         private string _searchText = string.Empty;
         private SortOptions _currentSortOption;
+        private Mp3ViewOption _currentView;
 
         public IEnumerable<Mp3File> AllFiles
         {
@@ -144,7 +145,15 @@ namespace MyMusic.Wpf.Models
             }
         }
 
-        public Mp3ViewOption CurrentView { get; set; }       
+
+        /// <summary>
+        /// Gets or sets the current view.
+        /// </summary>
+        public Mp3ViewOption CurrentView
+        {
+            get => _currentView; 
+            set => SetProperty(ref _currentView, value);
+        }
 
         /// <summary>
         /// Gets or sets the current sort option.

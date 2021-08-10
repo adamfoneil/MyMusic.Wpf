@@ -15,6 +15,7 @@
 	<Window.Resources>
 		<BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 		<converter:InverseBoolToVisibilityConverter x:Key="invBoolToVisibility"/>
+		<converter:Mp3ViewToBoolConverter x:Key="mp3ViewToBool"/>
 	</Window.Resources>
 
 	<Grid x:Name="LayoutRoot">
@@ -37,9 +38,9 @@
 					</Grid.RowDefinitions>
 
 					<DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="0" Margin="5">
-						<Button Width="80px" Command="{Binding ShowListCommand}">List</Button>
-						<Button Width="80px" Command="{Binding ShowArtistCommand}">Artists</Button>
-						<Button Width="80px" Command="{Binding ShowAlbumCommand}">Albums</Button>
+						<ToggleButton Width="80px" Command="{Binding ShowListCommand}" IsChecked="{Binding Mp3View.CurrentView, Converter={StaticResource mp3ViewToBool}, ConverterParameter=List}">List</ToggleButton>
+						<ToggleButton Width="80px" Command="{Binding ShowArtistCommand}" IsChecked="{Binding Mp3View.CurrentView, Converter={StaticResource mp3ViewToBool}, ConverterParameter=Artist}">Artists</ToggleButton>
+						<ToggleButton Width="80px" Command="{Binding ShowAlbumCommand}" IsChecked="{Binding Mp3View.CurrentView, Converter={StaticResource mp3ViewToBool}, ConverterParameter=Album}">Albums</ToggleButton>
 
 						<ComboBox Width="130px" ItemsSource="{Binding Source={helpers:EnumBindingSource EnumType=models:SortOptions}}"
 											SelectedItem="{Binding Path=Mp3View.CurrentSortOption}">
