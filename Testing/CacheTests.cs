@@ -11,7 +11,7 @@ namespace Testing
         [TestMethod]
         public async Task BuildCache()
         {
-            var cache = new MetadataCache(@"C:\Users\adamo\OneDrive\Music");
+            var cache = new MetadataCache(@"C:\Users\adamo\OneDrive\Music", null);
             var files = await cache.GetMp3FilesAsync();
         }
 
