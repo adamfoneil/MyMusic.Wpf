@@ -3,19 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+						 xmlns:converter="clr-namespace:MyMusic.Wpf.Converters"
              xmlns:local="clr-namespace:MyMusic.Wpf.Controls" d:DataContext="{d:DesignInstance Type=local:Playlist}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
+		<converter:SearchTextToRichTextConverter x:Key="searchTextToRichText"/>
 	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot">
-		<DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" CanUserAddRows="False" SelectedItem="{Binding CurrentTrack}" MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Mp3Files}">
+		<DataGrid AutoGenerateColumns="False" Grid.Row="1" Name="dgFiles" CanUserAddRows="False" SelectedItem="{Binding CurrentTrack}" 
+							MouseDoubleClick="dgFiles_MouseDoubleClick" ItemsSource="{Binding Mp3Files}">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Artist" Binding="{Binding Artist}" Width="*" IsReadOnly="True"/>
-				<DataGridTextColumn Header="Album" Binding="{Binding Album}" Width="*" IsReadOnly="True"/>
-				<DataGridTextColumn Header="Track" Binding="{Binding TrackNumber}" Width="40" IsReadOnly="True"/>
-				<DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" IsReadOnly="True"/>
+				<DataGridTemplateColumn Header="Artist" Width="*" IsReadOnly="True">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<local:HighlighterTextBlock>
+								<local:HighlighterTextBlock.RichText>
+									<MultiBinding Converter="{StaticResource searchTextToRichText}">
+										<Binding Path="Artist" />
+										<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+									</MultiBinding>
+								</local:HighlighterTextBlock.RichText>
+							</local:HighlighterTextBlock>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn Header="Album" Width="*" IsReadOnly="True">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<local:HighlighterTextBlock>
+								<local:HighlighterTextBlock.RichText>
+									<MultiBinding Converter="{StaticResource searchTextToRichText}">
+										<Binding Path="Album" />
+										<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+									</MultiBinding>
+								</local:HighlighterTextBlock.RichText>
+							</local:HighlighterTextBlock>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn Header="TrackNumber" Width="40" IsReadOnly="True">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<local:HighlighterTextBlock>
+								<local:HighlighterTextBlock.RichText>
+									<MultiBinding Converter="{StaticResource searchTextToRichText}">
+										<Binding Path="TrackNumber" />
+										<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+									</MultiBinding>
+								</local:HighlighterTextBlock.RichText>
+							</local:HighlighterTextBlock>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn Header="Title" Width="*" IsReadOnly="True">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<local:HighlighterTextBlock>
+								<local:HighlighterTextBlock.RichText>
+									<MultiBinding Converter="{StaticResource searchTextToRichText}">
+										<Binding Path="Title" />
+										<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+									</MultiBinding>
+								</local:HighlighterTextBlock.RichText>
+							</local:HighlighterTextBlock>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
 			</DataGrid.Columns>
 			<DataGrid.ContextMenu>
 				<ContextMenu Visibility="{Binding EnableContextMenu, Converter={StaticResource ResourceKey=boolToVisConverter}}">

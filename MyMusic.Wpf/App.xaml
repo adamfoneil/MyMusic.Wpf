@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:MyMusic.Wpf"
              Startup="OnStartup">
     <Application.Resources>
-         
+		<ResourceDictionary>
+			<SolidColorBrush x:Key="SearhHighlightBrush" Color="Yellow"/>
+			<SolidColorBrush x:Key="SearchHighlightForeground" Color="Black"/>
+		</ResourceDictionary>
     </Application.Resources>
 </Application>

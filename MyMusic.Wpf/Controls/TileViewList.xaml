@@ -9,6 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 	<UserControl.Resources>
 		<converter:WrapPanelSizeConverter x:Key="wrapPanelSizeConverter"/>
+		<converter:SearchTextToRichTextConverter x:Key="searchTextToRichText"/>
 		<DataTemplate x:Key="artistTemplate">
 			<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
 				<Border.Effect>
@@ -23,7 +24,14 @@
 						<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
 							<Image />
 						</Grid>
-						<TextBlock Grid.Row="1" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="13" ToolTip="{Binding ArtistName}"  FontWeight="Bold" TextWrapping="Wrap"/>
+						<local:HighlighterTextBlock Grid.Row="1" Margin="0 4 0 0" FontSize="13" ToolTip="{Binding ArtistName}"  FontWeight="Bold" TextWrapping="Wrap">
+							<local:HighlighterTextBlock.RichText>
+								<MultiBinding Converter="{StaticResource searchTextToRichText}">
+									<Binding Path="ArtistName" />
+									<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+								</MultiBinding>
+								</local:HighlighterTextBlock.RichText>
+						</local:HighlighterTextBlock>
 					</Grid>
                     <Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
                         <Button.Style>
@@ -59,7 +67,14 @@
 						<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
 							<Image />
 						</Grid>
-						<TextBlock Grid.Row="1" Text="{Binding Path=AlbumName}" FontSize="13" FontWeight="Bold" TextWrapping="WrapWithOverflow" ToolTip="{Binding AlbumName}"/>
+						<local:HighlighterTextBlock Grid.Row="1" FontSize="13" FontWeight="Bold" TextWrapping="WrapWithOverflow" ToolTip="{Binding AlbumName}">
+							<local:HighlighterTextBlock.RichText>
+								<MultiBinding Converter="{StaticResource searchTextToRichText}">
+									<Binding Path="AlbumName" />
+									<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+								</MultiBinding>
+								</local:HighlighterTextBlock.RichText>
+						</local:HighlighterTextBlock>
 						<TextBlock Grid.Row="2" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="9" ToolTip="{Binding Path=ArtistName}" />
 					</Grid>
 					<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
