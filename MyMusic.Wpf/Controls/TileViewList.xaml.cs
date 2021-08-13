@@ -77,5 +77,17 @@ namespace MyMusic.Wpf.Controls
 
 
 
+        public ICommand SearchCommand
+        {
+            get { return (ICommand)GetValue(SearchCommandProperty); }
+            set { SetValue(SearchCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SearchCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SearchCommandProperty =
+            DependencyProperty.Register("SearchCommand", typeof(ICommand), typeof(TileViewList));
+
+
+
     }
 }

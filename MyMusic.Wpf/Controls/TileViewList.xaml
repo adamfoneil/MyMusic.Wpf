@@ -11,89 +11,100 @@
 		<converter:WrapPanelSizeConverter x:Key="wrapPanelSizeConverter"/>
 		<converter:SearchTextToRichTextConverter x:Key="searchTextToRichText"/>
 		<DataTemplate x:Key="artistTemplate">
-			<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
-				<Border.Effect>
-					<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
-				</Border.Effect>
-				<Grid>
-					<Grid Height="150px" Width="130px">
-						<Grid.RowDefinitions>
-							<RowDefinition/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
-						<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
-							<Image />
+			<Button BorderThickness="0"  Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+							CommandParameter="{Binding}">
+				<Button.Content>
+					<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
+						<Border.Effect>
+							<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
+						</Border.Effect>
+						<Grid>
+							<Grid Height="150px" Width="130px">
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
+									<Image />
+								</Grid>
+								<local:HighlighterTextBlock Grid.Row="1" Margin="0 4 0 0" FontSize="13" ToolTip="{Binding ArtistName}"  FontWeight="Bold" TextWrapping="Wrap">
+									<local:HighlighterTextBlock.RichText>
+										<MultiBinding Converter="{StaticResource searchTextToRichText}">
+											<Binding Path="ArtistName" />
+											<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+										</MultiBinding>
+									</local:HighlighterTextBlock.RichText>
+								</local:HighlighterTextBlock>
+							</Grid>
+							<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
+								<Button.Style>
+									<Style TargetType="{x:Type Button}">
+										<Setter Property="Visibility" Value="Hidden" />
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+												<Setter Property="Visibility" Value="Visible" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Button.Style>
+								<Viewbox Height="20" Width="20" >
+									<Image Source="/Icons/play.png" />
+								</Viewbox>
+							</Button>
 						</Grid>
-						<local:HighlighterTextBlock Grid.Row="1" Margin="0 4 0 0" FontSize="13" ToolTip="{Binding ArtistName}"  FontWeight="Bold" TextWrapping="Wrap">
-							<local:HighlighterTextBlock.RichText>
-								<MultiBinding Converter="{StaticResource searchTextToRichText}">
-									<Binding Path="ArtistName" />
-									<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
-								</MultiBinding>
-								</local:HighlighterTextBlock.RichText>
-						</local:HighlighterTextBlock>
-					</Grid>
-                    <Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Visibility" Value="Hidden" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Viewbox Height="20" Width="20" >
-                            <Image Source="/Icons/play.png" />
-                        </Viewbox>
-                    </Button>
-                </Grid>
-			</Border>
+					</Border>
+				</Button.Content>
+			</Button>
+			
 		</DataTemplate>
 
 		<DataTemplate x:Key="albumTemplate">
-			<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
-				<Border.Effect>
-					<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
-				</Border.Effect>
-				<Grid>
-					<Grid Height="150px" Width="130px">
-						<Grid.RowDefinitions>
-							<RowDefinition/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
-						<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
-							<Image />
+			<Button BorderThickness="0" Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+							CommandParameter="{Binding}">
+				<Button.Content>
+					<Border Background="White" Padding="10" BorderThickness="1" BorderBrush="LightGray">
+						<Border.Effect>
+							<DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="LightGray" Opacity="0.8"/>
+						</Border.Effect>
+						<Grid>
+							<Grid Height="150px" Width="130px">
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Grid Width="120px" Height="150px" HorizontalAlignment="Center">
+									<Image />
+								</Grid>
+								<local:HighlighterTextBlock Grid.Row="1" FontSize="13" FontWeight="Bold" TextWrapping="WrapWithOverflow" ToolTip="{Binding AlbumName}">
+									<local:HighlighterTextBlock.RichText>
+										<MultiBinding Converter="{StaticResource searchTextToRichText}">
+											<Binding Path="AlbumName" />
+											<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
+										</MultiBinding>
+									</local:HighlighterTextBlock.RichText>
+								</local:HighlighterTextBlock>
+								<TextBlock Grid.Row="2" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="9" ToolTip="{Binding Path=ArtistName}" />
+							</Grid>
+							<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
+								<Button.Style>
+									<Style TargetType="{x:Type Button}">
+										<Setter Property="Visibility" Value="Hidden" />
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+												<Setter Property="Visibility" Value="Visible" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Button.Style>
+								<Viewbox Height="20" Width="20" >
+									<Image Source="/Icons/play.png" />
+								</Viewbox>
+							</Button>
 						</Grid>
-						<local:HighlighterTextBlock Grid.Row="1" FontSize="13" FontWeight="Bold" TextWrapping="WrapWithOverflow" ToolTip="{Binding AlbumName}">
-							<local:HighlighterTextBlock.RichText>
-								<MultiBinding Converter="{StaticResource searchTextToRichText}">
-									<Binding Path="AlbumName" />
-									<Binding Path="DataContext.SearchText" Mode="OneWay" ElementName="LayoutRoot" />
-								</MultiBinding>
-								</local:HighlighterTextBlock.RichText>
-						</local:HighlighterTextBlock>
-						<TextBlock Grid.Row="2" Margin="0 4 0 0" Text="{Binding Path=ArtistName}" FontSize="9" ToolTip="{Binding Path=ArtistName}" />
-					</Grid>
-					<Button x:Name="playButton" Width="40" Height="40" Margin="5 0" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}">
-						<Button.Style>
-							<Style TargetType="{x:Type Button}">
-								<Setter Property="Visibility" Value="Hidden" />
-								<Style.Triggers>
-									<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
-										<Setter Property="Visibility" Value="Visible" />
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</Button.Style>
-						<Viewbox Height="20" Width="20" >
-							<Image Source="/Icons/play.png" />
-						</Viewbox>
-					</Button>
-				</Grid>
-			</Border>
+					</Border>
+				</Button.Content>
+			</Button>
 		</DataTemplate>
 		<local:TileViewTemplateSelector x:Key="tileTemplate" 
 																			AlbumTemplate="{StaticResource albumTemplate}" 

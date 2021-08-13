@@ -16,6 +16,7 @@
 		<BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 		<converter:InverseBoolToVisibilityConverter x:Key="invBoolToVisibility"/>
 		<converter:Mp3ViewToBoolConverter x:Key="mp3ViewToBool"/>
+		<converter:Mp3ViewToVisibilityConverter x:Key="mp3ViewToVisibility"/>
 	</Window.Resources>
 
 	<Grid x:Name="LayoutRoot">
@@ -48,14 +49,17 @@
 						</ComboBox>
 						<TextBlock Text=""/>
 					</DockPanel>
-
-					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True" Visibility="{Binding ShowTileView, Converter={StaticResource invBoolToVisibility}}"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
+					
+					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True" 
+														 Visibility="{Binding  Mp3View.CurrentView, Mode=OneWay, Converter={StaticResource mp3ViewToVisibility}, ConverterParameter=ListView}"  
+														 Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
 														 RescanCommand="{Binding RescanCommand}" SearchText="{Binding Mp3View.SearchText}"
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
-					<controls:TileViewList Visibility="{Binding ShowTileView, Converter={StaticResource boolToVisibility}}" 
+					<controls:TileViewList Visibility="{Binding Mp3View.CurrentView, Mode=OneWay, Converter={StaticResource mp3ViewToVisibility}, ConverterParameter=TileView}" 
 																 PlayCommand="{Binding PlayCategoryCommand}" SearchText="{Binding Mp3View.SearchText}"
+																 SearchCommand="{Binding Mp3View.SearchCommand}"
 																 Grid.Row="1" Mp3Files="{Binding  Mp3View.CategoryCollection}"/>
 
 				</Grid>

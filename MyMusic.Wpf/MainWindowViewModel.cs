@@ -71,18 +71,6 @@ namespace MyMusic.Wpf
             }
         }
 
-        private bool _showTileView;
-
-        public bool ShowTileView
-        {
-            get { return _showTileView; }
-            set
-            {
-                SetProperty(ref _showTileView, value);
-            }
-        }
-
-
         private void OpenSettingsView(Window obj)
         {
             SettingsView settingsView = new SettingsView(_settingsViewModel);
@@ -119,19 +107,19 @@ namespace MyMusic.Wpf
 
         private void ShowListView()
         {
-            ShowTileView = false;
+            Mp3View.CurrentView = Mp3ViewOption.ListView;
             Mp3View?.GenerateListView();
         }
 
         private void ShowAlbumView()
         {
-            ShowTileView = true;
+            Mp3View.CurrentView = Mp3ViewOption.AlbumView;
             Mp3View?.GroupByAlbum();
         }
 
         private void ShowArtistView()
         {
-            ShowTileView = true;
+            Mp3View.CurrentView = Mp3ViewOption.ArtistView;
             Mp3View?.GroupByArtist();
         }
 
