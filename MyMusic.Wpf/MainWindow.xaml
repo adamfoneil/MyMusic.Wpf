@@ -25,7 +25,8 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<controls:TabControlEx Grid.Row="1" EnableSearchBox="{Binding Mp3View.IsLoaded, UpdateSourceTrigger=PropertyChanged}" SearchText="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+		<controls:TabControlEx Grid.Row="1" EnableSearchBox="{Binding Mp3View.IsLoaded, UpdateSourceTrigger=PropertyChanged}"													 
+													 SearchText="{Binding Mp3View.SearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 			<TabItem Header="Now Playing" Width="100" Height="30">
 				<controls:Player DataContext="{Binding PlayerViewModel}" x:Name="player"/>
 			</TabItem>
@@ -51,7 +52,7 @@
 					<controls:Playlist x:Name="dgFiles" Grid.Row="1" EnableContextMenu="True" Visibility="{Binding ShowTileView, Converter={StaticResource invBoolToVisibility}}"  Mp3FileSelected="dgFiles_Mp3FileSelected" 
 														 PlayAtEndCommand="{Binding PlayAtEndCommand}"
 														 PlayNextCommand="{Binding PlayNextCommand}"
-														 RescanCommand="{Binding RescanCommand}"
+														 RescanCommand="{Binding RescanCommand}" SearchText="{Binding Mp3View.SearchText}"
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
 					<controls:TileViewList Visibility="{Binding ShowTileView, Converter={StaticResource boolToVisibility}}" 
 																 PlayCommand="{Binding PlayCategoryCommand}"

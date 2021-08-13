@@ -128,6 +128,18 @@ namespace MyMusic.Wpf.Controls
 
 
 
+        public string SearchText
+        {
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SearchText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SearchTextProperty =
+            DependencyProperty.Register("SearchText", typeof(string), typeof(Playlist));
+
+
+
         // When the user double clicks on the data grid, this will further triggers the Mp3FileSelected event to notify its subscriber.
         private void dgFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
