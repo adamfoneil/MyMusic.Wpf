@@ -10,6 +10,12 @@ namespace MyMusic.Wpf
 
         public MainWindow(Settings settings, MainWindowViewModel mainWindowViewModel)
         {
+
+            // https://social.msdn.microsoft.com/Forums/vstudio/en-US/47c4e029-ac8f-4292-bb77-d716845f7b18
+            // https://weblogs.asp.net/akjoshi/resolving-un-harmful-binding-errors-in-wpf
+#if DEBUG
+            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Error;
+#endif
             _settings = settings;
             _settings.RootPathChanged += _settings_RootPathChanged;
             InitializeComponent();
