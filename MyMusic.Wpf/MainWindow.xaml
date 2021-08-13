@@ -55,7 +55,7 @@
 														 RescanCommand="{Binding RescanCommand}" SearchText="{Binding Mp3View.SearchText}"
 														 Mp3Files="{Binding  Mp3View.FilesCollection}"/>
 					<controls:TileViewList Visibility="{Binding ShowTileView, Converter={StaticResource boolToVisibility}}" 
-																 PlayCommand="{Binding PlayCategoryCommand}"
+																 PlayCommand="{Binding PlayCategoryCommand}" SearchText="{Binding Mp3View.SearchText}"
 																 Grid.Row="1" Mp3Files="{Binding  Mp3View.CategoryCollection}"/>
 
 				</Grid>

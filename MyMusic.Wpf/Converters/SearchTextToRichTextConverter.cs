@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -54,8 +55,8 @@ namespace MyMusic.Wpf.Converters
                 return inlines;
             }
 
-            Brush selectionColor = Brushes.Yellow;
-            Brush forecolor = Brushes.Black;
+            Brush selectionColor = Application.Current.Resources["SearhHighlightBrush"] as SolidColorBrush;
+            Brush forecolor = Application.Current.Resources["SearchHighlightForeground"] as SolidColorBrush;
 
             inlines.Clear();
             while (true)

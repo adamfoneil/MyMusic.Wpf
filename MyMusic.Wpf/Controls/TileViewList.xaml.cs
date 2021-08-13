@@ -63,5 +63,19 @@ namespace MyMusic.Wpf.Controls
             DependencyProperty.Register("PlayCommand", typeof(ICommand), typeof(TileViewList), new PropertyMetadata(null));
 
 
+
+
+        public string SearchText
+        {
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SearchText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SearchTextProperty =
+            DependencyProperty.Register("SearchText", typeof(string), typeof(TileViewList));
+
+
+
     }
 }
