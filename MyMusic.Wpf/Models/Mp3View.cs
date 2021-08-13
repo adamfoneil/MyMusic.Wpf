@@ -28,6 +28,9 @@ namespace MyMusic.Wpf.Models
 
     }
 
+    /// <summary>
+    /// I am a test comment
+    /// </summary>
     [TypeConverter(typeof(EnumDisplayTypeConverter))]
     public enum SortOptions
     {
